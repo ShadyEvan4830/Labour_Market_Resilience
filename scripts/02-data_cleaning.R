@@ -1,314 +1,118 @@
 #### Preamble ####
-# Purpose: Clean Study 2 Dataset
-# Author: Mingjia Chen, Hadi Ahmad, Tianen (Evan) Hao
-# Date: 11 February 2024
+# Purpose: Clean GSS Dataset
+# Author: Mingjia Chen, Catherine Punnoose, Tianen (Evan) Hao
+# Date: 11 March 2024 
 # Contact: mingjia.chen@mail.utoronto.ca 
 # License: MIT
-# Pre-requisites: R 4.3.2
+# Pre-requisites: R 4.3.2, Cropped_Data.csv
 
 #### Workspace setup ####
+library(janitor)
 library(tidyverse)
+library(knitr)
 library(dplyr)
-library(haven)
+library(kableExtra)
+library(here)
 
 #### Clean data ####
-data <- read_sav("inputs/data/FW satisfaction-Study 2-data.sav")
+# load dataset that has been cropped for analysis
+data <- read.csv(here::here("/inputs/data/Cropped_Data.csv"))
 
-data <- mutate(data,
-               jobsat_3r = case_when(
-                 jobsat_3 == 1 ~ 7,
-                 jobsat_3 == 2 ~ 6,
-                 jobsat_3 == 3 ~ 5,
-                 jobsat_3 == 4 ~ 4,
-                 jobsat_3 == 5 ~ 3,
-                 jobsat_3 == 6 ~ 2,
-                 jobsat_3 == 7 ~ 1,
-                 TRUE ~ jobsat_3
-               ),
-               jobsat_5r = case_when(
-                 jobsat_5 == 1 ~ 7,
-                 jobsat_5 == 2 ~ 6,
-                 jobsat_5 == 3 ~ 5,
-                 jobsat_5 == 4 ~ 4,
-                 jobsat_5 == 5 ~ 3,
-                 jobsat_5 == 6 ~ 2,
-                 jobsat_5 == 7 ~ 1,
-                 TRUE ~ jobsat_5
-               ),
-               jobsat2_3r = case_when(
-                 jobsat2_3 == 1 ~ 7,
-                 jobsat2_3 == 2 ~ 6,
-                 jobsat2_3 == 3 ~ 5,
-                 jobsat2_3 == 4 ~ 4,
-                 jobsat2_3 == 5 ~ 3,
-                 jobsat2_3 == 6 ~ 2,
-                 jobsat2_3 == 7 ~ 1,
-                 TRUE ~ jobsat2_3
-               ),
-               jobsat2_5r = case_when(
-                 jobsat2_5 == 1 ~ 7,
-                 jobsat2_5 == 2 ~ 6,
-                 jobsat2_5 == 3 ~ 5,
-                 jobsat2_5 == 4 ~ 4,
-                 jobsat2_5 == 5 ~ 3,
-                 jobsat2_5 == 6 ~ 2,
-                 jobsat2_5 == 7 ~ 1,
-                 TRUE ~ jobsat2_5
-               ),
-               selfest_3r = case_when(
-                 selfest_3 == 1 ~ 7,
-                 selfest_3 == 2 ~ 6,
-                 selfest_3 == 3 ~ 5,
-                 selfest_3 == 4 ~ 4,
-                 selfest_3 == 5 ~ 3,
-                 selfest_3 == 6 ~ 2,
-                 selfest_3 == 7 ~ 1,
-                 TRUE ~ selfest_3
-               ),
-               selfest_5r = case_when(
-                 selfest_5 == 1 ~ 7,
-                 selfest_5 == 2 ~ 6,
-                 selfest_5 == 3 ~ 5,
-                 selfest_5 == 4 ~ 4,
-                 selfest_5 == 5 ~ 3,
-                 selfest_5 == 6 ~ 2,
-                 selfest_5 == 7 ~ 1,
-                 TRUE ~ selfest_5
-               ),
-               selfest_8r = case_when(
-                 selfest_8 == 1 ~ 7,
-                 selfest_8 == 2 ~ 6,
-                 selfest_8 == 3 ~ 5,
-                 selfest_8 == 4 ~ 4,
-                 selfest_8 == 5 ~ 3,
-                 selfest_8 == 6 ~ 2,
-                 selfest_8 == 7 ~ 1,
-                 TRUE ~ selfest_8
-               ),
-               selfest_9r = case_when(
-                 selfest_9 == 1 ~ 7,
-                 selfest_9 == 2 ~ 6,
-                 selfest_9 == 3 ~ 5,
-                 selfest_9 == 4 ~ 4,
-                 selfest_9 == 5 ~ 3,
-                 selfest_9 == 6 ~ 2,
-                 selfest_9 == 7 ~ 1,
-                 TRUE ~ selfest_9
-               ),
-               selfest_10r = case_when(
-                 selfest_10 == 1 ~ 7,
-                 selfest_10 == 2 ~ 6,
-                 selfest_10 == 3 ~ 5,
-                 selfest_10 == 4 ~ 4,
-                 selfest_10 == 5 ~ 3,
-                 selfest_10 == 6 ~ 2,
-                 selfest_10 == 7 ~ 1,
-                 TRUE ~ selfest_10
-               ),
-               fw_16r = case_when(
-                 fw_16 == 1 ~ 6,
-                 fw_16 == 2 ~ 5,
-                 fw_16 == 3 ~ 4,
-                 fw_16 == 4 ~ 3,
-                 fw_16 == 5 ~ 2,
-                 fw_16 == 6 ~ 1,
-                 TRUE ~ fw_16
-               ),
-               fw_17r = case_when(
-                 fw_17 == 1 ~ 6,
-                 fw_17 == 2 ~ 5,
-                 fw_17 == 3 ~ 4,
-                 fw_17 == 4 ~ 3,
-                 fw_17 == 5 ~ 2,
-                 fw_17 == 6 ~ 1,
-                 TRUE ~ fw_17
-               ),
-               fw_21r = case_when(
-                 fw_21 == 1 ~ 6,
-                 fw_21 == 2 ~ 5,
-                 fw_21 == 3 ~ 4,
-                 fw_21 == 4 ~ 3,
-                 fw_21 == 5 ~ 2,
-                 fw_21 == 6 ~ 1,
-                 TRUE ~ fw_21
-               ),
-               fw_22r = case_when(
-                 fw_22 == 1 ~ 6,
-                 fw_22 == 2 ~ 5,
-                 fw_22 == 3 ~ 4,
-                 fw_22 == 4 ~ 3,
-                 fw_22 == 5 ~ 2,
-                 fw_22 == 6 ~ 1,
-                 TRUE ~ fw_22
-               )
-)
+# the first column of the dataset is the names of the rows
+# so we renamed the row names based on first column and 
+#deleted the column at the end
+row_number <- nrow(data)
+for (i in 1:row_number) {
+  rownames(data)[i] = data[i,1]
+}
 
-# Compute means for each group of variables
-data$FWDfw <- rowMeans(data[, c("fw_1", "fw_2", "fw_3", "fw_4", "fw_5")])
-data$FWDagency <- rowMeans(data[, c("fw_6", "fw_7", "fw_8", "fw_9")])
-data$FWDmoral <- rowMeans(data[, c("fw_10", "fw_11", "fw_12", "fw_13", "fw_14", "fw_15")])
-data$FWDpower <- rowMeans(data[, c("fw_16r", "fw_17r", "fw_18")])
-data$FWDresp <- rowMeans(data[, c("fw_19", "fw_20")])
-data$FWDlimit <- rowMeans(data[, c("fw_21r", "fw_22r")])
-data$FWDall <- rowMeans(data[, c("fw_1", "fw_2", "fw_3", "fw_4", "fw_5", 
-                                 "fw_10", "fw_11", "fw_12", "fw_13", "fw_14", "fw_15", 
-                                 "fw_19", "fw_20", "fw_16r", "fw_17r", "fw_18", 
-                                 "fw_21r", "fw_22r")])
-data$FWDfwagency <- rowMeans(data[, c("fw_1", "fw_2", "fw_3", "fw_4", "fw_5", 
-                                      "fw_6", "fw_7", "fw_8", "fw_9")])
-data$FWself <- rowMeans(data[, c("fw_6", "fw_18", "fw_8", "fw_21r", "fw_3", "fw_7", "fw_22r", "fw_9")])
-data$FWgeneral <- rowMeans(data[, c("fw_1", "fw_2", "fw_4", "fw_5", "fw_10", "fw_11", "fw_12", "fw_13",
-                                    "fw_14", "fw_15", "fw_16r", "fw_17r", "fw_19", "fw_20")])
-data$jobsatT1 <- rowMeans(data[, c("jobsat_1","jobsat_2","jobsat_3r","jobsat_4","jobsat_5r")])
-data$jobsatT2 <- rowMeans(data[, c("jobsat2_1", "jobsat2_2","jobsat2_3r", "jobsat2_4","jobsat2_5r")])
+# Delete the column
+data <- data[c(2:ncol(data))]
 
-data$jobautT1 <- rowMeans(data[, c("jobaut_3", "jobaut_4","jobaut_5")])
-data$jobautT2 <- rowMeans(data[, c("jobaut2_3", "jobaut2_4","jobaut2_5")])
+# Get rid of the first letter X for each of the years
+colnames(data) <- gsub("X", "", colnames(data))
 
+# Rename part of the row names 
+#(i.e. change .i Inapplicable into Inapplicable for better
+#data representation) 
+rownames(data)[1] <- "Inapplicable"
+rownames(data)[2] <- "No answer"
+rownames(data)[3] <- "Do not Know/Cannot Choose"
+rownames(data)[4] <- "Skipped on Web"
 
-# Assign variable labels
-variable.labels <- c("FWDfw" = "FW T1 Free will subscale",
-                     "FWDagency" = "FW T1 personal agency subscale",
-                     "FWDmoral" = "FW T1 Moral responsibility subscale",
-                     "FWDpower" = "FW T1 Higher power control subscale",
-                     "FWDresp" = "FW T1 Personal responsibility subscale",
-                     "FWDlimit" = "FW T1 Personal limitations subscale",
-                     "FWDall" = "FW T1 both scales",
-                     "FWDfwagency" = "FW T1 agency and free will subscales",
-                     "FWself" = "Free will beliefs - personal T1",
-                     "FWgeneral" = "Free will beliefs - general T1",
-                     "jobsatT1" = "Job satisfaction(T1)",
-                     "jobsatT2" = "Job satisfaction(T2)",
-                     "jobautT1" = "Job autonomy(T1)",
-                     "jobautT2" = "Job autonomy(T2)"
-                     )
+# Save the cleaned data
+write.csv(data, "/inputs/data/Cleaned_Data.csv")
 
-# Assign variable labels to the variables
-attr(data$FWDfw, "label") <- variable.labels["FWDfw"]
-attr(data$FWDagency, "label") <- variable.labels["FWDagency"]
-attr(data$FWDmoral, "label") <- variable.labels["FWDmoral"]
-attr(data$FWDpower, "label") <- variable.labels["FWDpower"]
-attr(data$FWDresp, "label") <- variable.labels["FWDresp"]
-attr(data$FWDlimit, "label") <- variable.labels["FWDlimit"]
-attr(data$FWDall, "label") <- variable.labels["FWDall"]
-attr(data$FWDfwagency, "label") <- variable.labels["FWDfwagency"]
-attr(data$FWself, "label") <- variable.labels["FWself"]
-attr(data$FWgeneral, "label") <- variable.labels["FWgeneral"]
-attr(data$jobsatT1, "label") <- variable.labels["jobsatT1"]
-attr(data$jobsatT2, "label") <- variable.labels["jobsatT2"]
-attr(data$jobautT1, "label") <- variable.labels["jobautT1"]
-attr(data$jobautT2, "label") <- variable.labels["jobautT2"]
+#Categorize Data============================
+data <- read.csv(here::here("/inputs/data/Cleaned_Data.csv"))
+colnames(data)[1] <- "work_hours"
+colnames(data) <- gsub("X", "", colnames(data))
 
+cate_data <- data
+year <- colnames(data)
+Hours <- c("No Response","0-20","21-40","41-60","61-80","80+","Total")
 
+col_number <- ncol(cate_data) -1
 
-#### Save data ####
-write.csv(data, "outputs/data/FW_satisfaction-Study_2-data.csv")
+filtered_df1 <- cate_data %>%
+  filter(work_hours < 20) 
 
+tweenties <- rep(0, 35)
+for(i in 1:col_number){
+  tweenties[i] <- sum(filtered_df1 [, i+1])
+}
 
-#### Create summary tables for descriptive graphs
+filtered_df2 <- cate_data %>%
+  filter(work_hours < 40) %>%
+  filter(work_hours > 20)
 
-#satisfaction (T1)
-jobsat_data <- data[,c("jobsat_1","jobsat_2","jobsat_3r","jobsat_4","jobsat_5r")]
+forties <- rep(0, 35)
+for(i in 1:col_number){
+  forties[i] <- sum(filtered_df2[, i+1])
+}
 
-# The Code below is generated by chatGPT 4.0 (see details in LLM usage)
+filtered_df3 <- cate_data %>%
+  filter(work_hours < 60) %>%
+  filter(work_hours > 40)
 
-# Convert data to long format for ggplot2
-data_long <- jobsat_data %>% 
-  pivot_longer(cols = everything(), names_to = "Question", values_to = "Response")
+sixties <- rep(0, 35)
+for(i in 1:col_number){
+  sixties[i] <- sum(filtered_df3 [, i+1])
+}
 
-# Calculate frequencies
-data_freq <- data_long %>% 
-  group_by(Question, Response) %>% 
-  summarise(Frequency = n()) %>% 
-  ungroup()
+filtered_df4 <- cate_data %>%
+  filter(work_hours < 80) %>%
+  filter(work_hours > 60)
 
-# Calculate percentages
-data_freq <- data_freq %>% 
-  group_by(Question) %>% 
-  mutate(Percent = Frequency / sum(Frequency) * 100) %>% 
-  ungroup()
+eighties <- rep(0, 35)
+for(i in 1:col_number){
+  eighties[i] <- sum(filtered_df4[, i+1])
+}
 
-data_freq  <- mutate(data_freq ,
-                     Question = case_when(
-                       Question == "jobsat_1" ~ "Scale 1",
-                       Question == "jobsat_2" ~ "Scale 2",
-                       Question == "jobsat_3r" ~ "Scale 3",
-                       Question == "jobsat_4" ~ "Scale 4",
-                       Question == "jobsat_5r" ~ "Scale 5",
-                       TRUE ~  Question 
-                     )
-)
-write.csv(data_freq, "outputs/data/jobsatT1_data_freq.csv")
+filtered_df5 <- cate_data %>%
+  filter(work_hours > 80) 
+filtered_df5 <- filtered_df5[5:14,]
 
-#satisfaction (T2)
-jobsat2_data <- data[,c("jobsat2_1","jobsat2_2","jobsat2_3r","jobsat2_4","jobsat2_5r")]
+more <- rep(0, 35)
+for(i in 1:col_number){
+  more[i] <- sum(filtered_df5[, i+1])
+}
 
-# The Code below is generated by chatGPT 4.0 (see details in LLM usage)
+filtered_df6 <- cate_data %>%
+  filter(work_hours > 80) 
+filtered_df6 <- filtered_df6[1:4,]
 
-# Convert data to long format for ggplot2
-data2_long <- jobsat2_data %>% 
-  pivot_longer(cols = everything(), names_to = "Question", values_to = "Response")
+No_Response <- rep(0, 35)
+for(i in 1:col_number){
+  No_Response[i] <- sum(filtered_df6[, i+1])
+}
 
-# Calculate frequencies
-data2_freq <- data2_long %>% 
-  group_by(Question, Response) %>% 
-  summarise(Frequency = n()) %>% 
-  ungroup()
+rm(filtered_df1,filtered_df2,filtered_df3,filtered_df4,filtered_df5,filtered_df6)
 
-# Calculate percentages
-data2_freq <- data2_freq %>% 
-  group_by(Question) %>% 
-  mutate(Percent = Frequency / sum(Frequency) * 100) %>% 
-  ungroup()
+total <- data[95,2:36]
 
-data2_freq  <- mutate(data2_freq ,
-                      Question = case_when(
-                        Question == "jobsat2_1" ~ "Scale 1",
-                        Question == "jobsat2_2" ~ "Scale 2",
-                        Question == "jobsat2_3r" ~ "Scale 3",
-                        Question == "jobsat2_4" ~ "Scale 4",
-                        Question == "jobsat2_5r" ~ "Scale 5",
-                        TRUE ~  Question 
-                      )
-)
-write.csv(data2_freq, "outputs/data/jobsatT2_data_freq.csv")
+cate_data <- rbind(No_Response,tweenties,forties,sixties,eighties,more,total)
+cate_data <- data.frame(cbind(Hours,cate_data))
+colnames(cate_data) <- year
 
-
-#Belief in Free will
-fw_data <- data[,c("fw_1", "fw_2", "fw_3", "fw_4", "fw_5", 
-                        "fw_6", "fw_7", "fw_8", "fw_9")]
-
-# The Code below is generated by chatGPT 4.0 (see details in LLM usage)
-
-# Convert data to long format for ggplot2
-FWdata_long <- fw_data%>% 
-  pivot_longer(cols = everything(), names_to = "Question", values_to = "Response")
-
-# Calculate frequencies
-FWdata_freq <- FWdata_long %>% 
-  group_by(Question, Response) %>% 
-  summarise(Frequency = n()) %>% 
-  ungroup()
-
-# Calculate percentages
-FWdata_freq <- FWdata_freq %>% 
-  group_by(Question) %>% 
-  mutate(Percent = Frequency / sum(Frequency) * 100) %>% 
-  ungroup()
-
-FWdata_freq <- mutate(FWdata_freq ,
-                      Question = case_when(
-                        Question == "fw_1" ~ "Scale 1",
-                        Question == "fw_2" ~ "Scale 2",
-                        Question == "fw_3" ~ "Scale 3",
-                        Question == "fw_4" ~ "Scale 4",
-                        Question == "fw_5" ~ "Scale 5",
-                        Question == "fw_6" ~ "Scale 6",
-                        Question == "fw_7" ~ "Scale 7",
-                        Question == "fw_8" ~ "Scale 8",
-                        Question == "fw_9" ~ "Scale 9",
-                        TRUE ~  Question 
-                      )
-)
-write.csv(FWdata_freq, "outputs/data/FW_data_freq.csv")
-
+write.csv(cate_data,""/inputs/data/cleaned_categorized_data.csv")
