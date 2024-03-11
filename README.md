@@ -1,8 +1,8 @@
-# The Freedom of Choice in the Gig Economy
-Belief in Free Will Positively Predicts Job Satisfaction
+# Labour Market Resilience
+Economic Crisis Has Diverse Impacts on Industry Work Hours
 
 ## Overview of Paper
-This paper is based on Feldman et al.'s (2018) academic paper, which deeply explores how free will beliefs affect job satisfaction in various work environments, with a further special focus on platforms such as Amazon Mechanical Turk and the gig economy. By analyzing the correlation between personal autonomy perception and satisfaction, this research highlighted a significant positive relationship between the two. This research extends its findings to include the impact of cultural and job-specific factors on this relationship, providing new insights into nontraditional work settings. This paper aims to contribute to the broader discussion about the role of personal beliefs in shaping job satisfaction in today’s gig economy.
+This paper explores the nuanced impacts of economic crises on labour market dynamics, specifically focusing on how various economic downturns, such as the 1998 Asian Financial Crisis, the 2008 financial crisis, and the COVID-19 pandemic, influence work hours across different industries and demographics. Our analysis leverages the dataset "Number of hours worked last week" from decades of the U.S. General Social Survey (GSS) and programming R language to examine the labour market's resilience and economic downturn effects.
 
 ## File Structure
 The repository is structured as follows:
@@ -13,4 +13,4 @@ The repository is structured as follows:
 - Run `original_paper` to view the replication package included with the original paper
 
 ## LLM Usage Statement
-- `inputs/llm/usage.text` When writing this report, the ChatGPT 4 language model was used to obtain relevant inspiration and suggestions for freewill-related analysis and comparison with the original paper's content. ChatGPT 4 provides the author with some indicators that can support how workers' free will affects job satisfaction, such as psychological aspects (please refer to usage.txt for more details); these suggestions inspired the author to choose the current Journal Study: "Work and Freedom in the Context of Agency Beliefs and Job Satisfaction" serve as additional professional evidence to support freewill's relevant conclusions. ChatGPT 4 also provides grammatical and structural correction suggestions for the paper content to ensure more conciseness. For a straightforward visualization of Likert scale responses, Figure 1, a stacked bar chart is recommended by ChatGPT 4. It succinctly represents the distribution of responses per category, facilitating easy comparison across items.
+- `inputs/llm/usage.text` When writing this report, the ChatGPT 4 language model was used to obtain relevant inspiration and suggestions for solving the problem of Non-response Rates in GSS analysis. ChatGPT 4 provides the author with some indicators that can support problems and potential solutions caused by Non-response Rates (please refer to usage.txt for more details); these suggestions inspired the author to choose the current Journal Study: "The impact of nonresponse rates on nonresponse bias: A meta-analysis" serve as additional professional evidence to support labour market analysis relevant conclusions. ChatGPT 4 also provides grammatical and structural correction suggestions for the paper content to ensure more conciseness.
