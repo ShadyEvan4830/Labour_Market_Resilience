@@ -12,7 +12,7 @@
 library(dplyr)
 
 #### Test data ####
-data <- read.csv(here:here("/inputs/data/cleaned_categorized_data.csv"))
+data <- read.csv(here::here("inputs/data/cleaned_categorized_data.csv"))
 test_non_negative <- all(select(data, -work_hours) >= 0)
 print(test_non_negative)
 #The result shows that the year columns does not contain non-negative values.

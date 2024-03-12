@@ -1,16 +1,29 @@
-#### Preamble ####
-# Purpose: GSS Tables and Graphs for the Paper
-# Author: Mingjia Chen, Catherine Punnoose, Tianen (Evan) Hao
-# Date: 11 March 2024 
-# Contact: mingjia.chen@mail.utoronto.ca 
-# License: MIT
-# Pre-requisites: R 4.3.2, Cropped_Data.csv, cleaned_categorized_data.csv
+---
+title: "Labour Market Resilience"
+subtitle: "Economic Crisis Has Diverse Impacts on Industry Work Hours"
+author: 
+  - Mingjia Chen
+  - Catherine Punnoose
+  - Tianen (Evan) Hao
+thanks: "Code and data are available at: https://github.com/ShadyEvan4830/Labour_Market_Resilience.git"
+date: March 11, 2024
+date-format: long
+abstract: "First sentence, second sentence, third sentence."
+format: pdf
+toc: true
+number-sections: true
+bibliography: bibliography.bib
+---
+
+```{r}
+#| include: false
+#| warning: false
+#| message: false
 
 #download the packages if necessary, then load the packages
 if (!require("pacman")) install.packages("pacman")
 pacman::p_load(janitor,here,dplyr,tidyverse,knitr,kableExtra,ggplot2)
 
-# Load the psych package
 library(janitor)
 library(tidyverse)
 library(knitr)
@@ -18,8 +31,38 @@ library(dplyr)
 library(kableExtra)
 library(here)
 library(ggplot2)
+```
 
-# Overview of the Categorized Data 
+# Introduction
+
+# Data
+
+## Source Data
+
+For the analysis, we retrieved the following data as described in @tbl-use-var.
+
+| Variable | New Name   | Description                     | Example |
+|----------|------------|---------------------------------|---------|
+| response | work hours | Respondent's response           | 23      |
+| year     | year       | The year of the survey recorded | 2007    |
+
+: Source data retrieved from GSS {#tbl-use-var}
+
+## Data Cleaning
+
+The data was downloaded and filtered for the selected variables from the selected data variables from GSS[^1]. The data cleaning was performed based on value definitions as defined in the GSS codebook [@gssCodebook]. One of the variable names `response` is renamed to be more informative [@tbl-use-var].
+
+The data was thus been cleaned by using the open source statistically programming language R [@citeR], with libraries `tidyverse` [@tidyverse], `ggplot2` [@ggplot2], `dplyr` [@dplyr], `readr` [@readr], `tibble` [@tibble], `here` [@here], `kableExtra` [@kableExtra], `janitor` [@janitor], and `knitr` [@knitr].
+
+[^1]: https://gss.norc.org/documents/stata/GSS_stata.zip
+
+```{r}
+#| label: tbl-data-overview
+#| tbl-cap: Overview of the Categorized Data 
+#| echo: false
+#| warning: false
+#| message: false
+
 data <- read.csv(here::here("inputs/data/cleaned_categorized_data.csv"))
 # Delete the column
 data <- data[c(2:ncol(data))]
@@ -31,9 +74,20 @@ data_selected <- data[c("Work Hours/Years", "1998","2008","2021","Total")]
 kable(data_selected,row.names = FALSE)|>
   kable_styling() |>
   row_spec(6, hline_after = TRUE)
+```
 
-# Overview of the 1998 Survey Data 
-data <- read.csv(here:here("inputs/data/cleaned_categorized_data.csv"))
+## Data Limitations 
+
+## Survey Methodology 
+
+### 1998 Survey Methodology 
+```{r}
+#| label: fig-Survey-1998
+#| tbl-cap: Overview of the 1998 Survey Data 
+#| echo: false
+#| warning: false
+#| message: false
+data <- read.csv(here::here("inputs/data/cleaned_categorized_data.csv"))
 data <- data[1:6,]
 
 ggplot(data, aes(x = "", y = X1998, fill = work_hours)) +
@@ -43,9 +97,19 @@ ggplot(data, aes(x = "", y = X1998, fill = work_hours)) +
   theme_void() +  # Remove background and gridlines
   labs(title = "1998 Survey Results") +
   theme(plot.title = element_text(hjust = 0.5, size = 16))
+```
+\break
 
-# Overview of the 2008 Survey Data 
-data <- read.csv(here:here("inputs/data/cleaned_categorized_data.csv"))
+### 2008 Survey Methodology
+
+```{r}
+#| label: fig-Survey-2008
+#| tbl-cap: Overview of the 2008 Survey Data 
+#| echo: false
+#| warning: false
+#| message: false
+
+data <-read.csv(here::here("inputs/data/cleaned_categorized_data.csv"))
 data <- data[1:6,]
 
 ggplot(data, aes(x = "", y = X2008, fill = work_hours)) +
@@ -55,9 +119,17 @@ ggplot(data, aes(x = "", y = X2008, fill = work_hours)) +
   theme_void() +  # Remove background and gridlines
   labs(title = "2008 Survey Results") +
   theme(plot.title = element_text(hjust = 0.5, size = 16))
+```
+\break
 
-# Overview of the 2021 Survey Data 
-data <- read.csv(here:here("inputs/data/cleaned_categorized_data.csv"))
+### Gap in 2020 Data 
+```{r}
+#| label: fig-Survey-2021
+#| tbl-cap: Overview of the 2021 Survey Data 
+#| echo: false
+#| warning: false
+#| message: false
+data <- read.csv(here::here("inputs/data/cleaned_categorized_data.csv"))
 data <- data[1:6,]
 
 ggplot(data, aes(x = "", y = X2021, fill = work_hours)) +
@@ -67,9 +139,23 @@ ggplot(data, aes(x = "", y = X2021, fill = work_hours)) +
   theme_void() +  # Remove background and gridlines
   labs(title = "2021 Survey Results") +
   theme(plot.title = element_text(hjust = 0.5, size = 16))
+```
 
-# Average Working Hours Comparison between Financial Events
-data <- read.csv(here:here("inputs/data/Cleaned_Data.csv"))
+### Non-responses
+
+
+# Results
+
+## Working Hour Comparison Between Financial Events 
+
+```{r}
+#| label: fig-ave-hour-comparison
+#| fig-cap: Average Working Hours Comparison between Financial Events
+#| echo: false
+#| warning: false
+#| message: false
+
+data <- read.csv(here::here("inputs/data/Cleaned_Data.csv"))
 # Get rid of the first letter X for each of the years
 colnames(data)[1] <- "work_hours"
 colnames(data) <- gsub("X", "", colnames(data))
@@ -103,9 +189,22 @@ ggplot(average_hours,aes(x=years,y=averages)) +
   labs(x = "Year", y = "Average Working Hour") +
   scale_color_brewer(palette = "Set1") +
   theme(legend.position = "bottom")
+```
 
-# Categorical Working Hour Comparison Between the Years
-data <- read.csv(here:here("inputs/data/cleaned_categorized_data.csv"))
+\break 
+
+```{r}
+#| label: fig-cate-comparisons
+#| fig-cap: Categorical Working Hour Comparison between the Years
+#| fig-subcap: ["Asian Financial Crisis (1998)","World Financial Crisis(2008)","During Covid-19 Pandemic (2021)", "Total"]
+#| layout-ncol: 2
+#| echo: false
+#| warning: false
+#| message: false
+
+#still need to modify the graphs
+
+data <- read.csv(here::here("inputs/data/cleaned_categorized_data.csv"))
 data <- data[c(2:ncol(data))]
 # Get rid of the first letter X for each of the years
 colnames(data) <- gsub("X", "", colnames(data))
@@ -141,10 +240,20 @@ ggplot(Data_Total,aes(x=work_hours,y= Total)) +
   labs(x = "Working Hours", y = "Number of Reports") +
   scale_color_brewer(palette = "Set1") +
   theme(legend.position = "bottom")
+```
 
-# Nonresponse Rates
+\break
+
+## Nonreponse Rate
+```{r}
+#| label: fig-nonresponse-rate
+#| fig-cap: Nonresponse Rates
+#| echo: false
+#| warning: false
+#| message: false
+
 # Calculate percentages
-data <- read.csv(here:here("inputs/data/cleaned_categorized_data.csv"))
+data <- read.csv(here::here("inputs/data/cleaned_categorized_data.csv"))
 data <- data[c(2:ncol(data))]
 data <- data[1:6,]
 
@@ -163,7 +272,7 @@ no_response_data <- no_response_data[-length(no_response_data)]
 
 # Calculate total responses per year excluding the 'work_hours' and 'Total' columns
 
-data <- read.csv("cleaned_categorized_data.csv")
+data <- read.csv(here::here("inputs/data/cleaned_categorized_data.csv"))
 data <- data[c(3:ncol(data))]
 
 total_responses_per_year <- as.vector(data[7,])
@@ -186,3 +295,35 @@ ggplot(non_response_data, aes(x = years,y=non_response_rate)) +
   labs(title = "Non-Response Rate by Year", x = "Year", y = "Percentage of Non-Responses") +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 
+```
+
+\break
+
+# Discussion
+
+## Labour Market Response Across Economic Crises
+
+## Demographic Disparities in Labour Market Participation
+
+### Younger Workers and Educational Attainment
+
+### Women in the Labour Market
+
+## Political Affiliation and Labour Market Perceptions
+
+##  Ethical Considerations and Bias
+
+## Limitations
+
+## Future Research
+
+## Journal Study: Directions on Non-response Rates
+
+# Conclusion
+
+\appendix
+
+# Appendix {-}
+
+\newpage
+# References
