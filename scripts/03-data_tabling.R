@@ -4,7 +4,7 @@
 # Date: 11 March 2024 
 # Contact: mingjia.chen@mail.utoronto.ca 
 # License: MIT
-# Pre-requisites: R 4.3.2, Cropped_Data.csv, cleaned_categorized_data.csv
+# Pre-requisites: R 4.3.2, cleaned_Data.csv, cleaned_categorized_data.csv
 
 #download the packages if necessary, then load the packages
 if (!require("pacman")) install.packages("pacman")
@@ -69,7 +69,7 @@ ggplot(data, aes(x = "", y = X2021, fill = work_hours)) +
   theme(plot.title = element_text(hjust = 0.5, size = 16))
 
 # Average Working Hours Comparison between Financial Events
-data <- read.csv(here:here("inputs/data/Cleaned_Data.csv"))
+data <- read.csv(here:here("inputs/data/cleaned_data.csv"))
 # Get rid of the first letter X for each of the years
 colnames(data)[1] <- "work_hours"
 colnames(data) <- gsub("X", "", colnames(data))

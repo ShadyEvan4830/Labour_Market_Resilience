@@ -155,7 +155,7 @@ ggplot(data, aes(x = "", y = X2021, fill = work_hours)) +
 #| warning: false
 #| message: false
 
-data <- read.csv(here::here("inputs/data/Cleaned_Data.csv"))
+data <- read.csv(here::here("inputs/data/cleaned_data.csv"))
 # Get rid of the first letter X for each of the years
 colnames(data)[1] <- "work_hours"
 colnames(data) <- gsub("X", "", colnames(data))
@@ -324,6 +324,9 @@ ggplot(non_response_data, aes(x = years,y=non_response_rate)) +
 \appendix
 
 # Appendix {-}
+
+## Survey Introduction
+The supplemental survey is available here: [Google Form Link](https://forms.gle/Ffma5ggEcP6wfumu6)
 
 \newpage
 # References

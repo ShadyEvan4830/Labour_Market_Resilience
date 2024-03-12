@@ -4,7 +4,7 @@
 # Date: 11 March 2024 
 # Contact: mingjia.chen@mail.utoronto.ca 
 # License: MIT
-# Pre-requisites: R 4.3.2, Cropped_Data.csv
+# Pre-requisites: R 4.3.2, cropped_data.csv
 
 #### Workspace setup ####
 library(janitor)
@@ -16,7 +16,7 @@ library(here)
 
 #### Clean data ####
 # load dataset that has been cropped for analysis
-data <- read.csv(here::here("inputs/data/Cropped_Data.csv"))
+data <- read.csv(here::here("inputs/data/cropped_data.csv"))
 
 # the first column of the dataset is the names of the rows
 # so we renamed the row names based on first column and 
@@ -41,10 +41,10 @@ rownames(data)[3] <- "Do not Know/Cannot Choose"
 rownames(data)[4] <- "Skipped on Web"
 
 # Save the cleaned data
-write.csv(data, "inputs/data/Cleaned_Data.csv")
+write.csv(data, "inputs/data/cleaned_data.csv")
 
 #Categorize Data============================
-data <- read.csv(here::here("inputs/data/Cleaned_Data.csv"))
+data <- read.csv(here::here("inputs/data/cleaned_data.csv"))
 colnames(data)[1] <- "work_hours"
 colnames(data) <- gsub("X", "", colnames(data))
 
