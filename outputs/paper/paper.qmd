@@ -335,84 +335,73 @@ Your participation is voluntary and confidential. You may skip any question or w
 
 ## Survey Questions
 
-\begin{itemize}
-        \item Demographic Information:
-            \begin{enumerate}
-                \item What is your age group?
-                \begin{itemize}
-                  \item Under 18
-                  \item 18-24
-                  \item 25-34
-                  \item 35-44
-                  \item 45-54
-                  \item 55-64
-                  \item 65+
-                \end{itemize}
-                \item What is your highest level of education?
-                \begin{itemize}
-                  \item High school graduate
-                  \item Bachelor's degree
-                  \item Graduate or professional degree
-                \end{itemize}
-                \item Please specify your gender:
-                \begin{itemize}
-                  \item Male
-                  \item Female
-                  \item Non-binary
-                  \item Prefer not to say
-                \end{itemize}
-            \end{enumerate}
-        \item Employment Status and Industry:
-              \begin{enumerate}
-                \item What is your current employment status?
-                \begin{itemize}
-                  \item Employed full-time
-                  \item Employed part-time
-                  \item Unemployed
-                  \item Retired
-                  \item Student
-                \end{itemize}
-                \item If employed, what industry do you work in?
-                \begin{itemize}
-                  \item Manufacturing
-                  \item Construction
-                  \item Retail
-                  \item Hospitality
-                  \item Healthcare
-                  \item Education
-                  \item Information Technology
-                  \item Professional Services
-                  \item Other (please specify)
-                \end{itemize}
-            \end{enumerate}
-        \item Impact of Economic Downturns:
-              \begin{enumerate}
-                \item How did the 2008 financial crisis and/or the COVID-19 pandemic affect your working hours? Did your hours:
-                \begin{itemize}
-                  \item Increase
-                  \item Decrease
-                  \item Stay the same
-                  \item Not applicable/I wasn't employed during these times
-                \end{itemize}
-                \item Did you have to switch to remote work during the COVID-19 pandemic?
-                \begin{itemize}
-                  \item Yes
-                  \item No
-                  \item Not applicable
-                \end{itemize}
-              \end{enumerate}
-        \item Responses to Economic Downturns:
-              \begin{enumerate}
-                \item In times of economic downturn, what support measures do you believe are most effective for workers?
-                \begin{itemize}
-                  \item Unemployment benefits
-                  \item Skills retraining programs
-                  \item Direct financial aid
-                  \item Flexible work arrangements
-                  \item Other (please specify)
-                \end{itemize}
-            \end{enumerate}
-\end{itemize}
+\begin{enumerate}
+   \item What is your age group?
+   \begin{itemize}
+      \item Under 18
+      \item 18-24
+      \item 25-34
+      \item 35-44
+      \item 45-54
+      \item 55-64
+      \item 65+
+    \end{itemize}
+    \item What is your highest level of education?
+    \begin{itemize}
+      \item High school graduate
+      \item Bachelor's degree
+      \item Graduate or professional degree
+    \end{itemize}
+    \item Please specify your gender:
+    \begin{itemize}
+      \item Male
+      \item Female
+      \item Non-binary
+      \item Prefer not to say
+    \end{itemize}
+    \item What is your current employment status?
+    \begin{itemize}
+      \item Employed full-time
+      \item Employed part-time
+      \item Unemployed
+      \item Retired
+      \item Student
+    \end{itemize}
+    \item If employed, what industry do you work in?
+    \begin{itemize}
+      \item Manufacturing
+      \item Construction
+      \item Retail
+      \item Hospitality
+      \item Healthcare
+      \item Education
+      \item Information Technology
+      \item Professional Services
+      \item Other (please specify)
+    \end{itemize}
+    \item How did the 2008 financial crisis and/or the COVID-19 pandemic affect your working hours? Did your hours:
+    \begin{itemize}
+      \item Increase
+      \item Decrease
+      \item Stay the same
+      \item Not applicable/I wasn't employed during these times
+      \end{itemize}
+    \item Did you have to switch to remote work during the COVID-19 pandemic?
+    \begin{itemize}
+      \item Yes
+      \item No
+      \item Not applicable
+    \end{itemize}
+    \item In times of economic downturn, what support measures do you believe are most effective for workers?
+    \begin{itemize}
+      \item Unemployment benefits
+      \item Skills retraining programs
+      \item Direct financial aid
+      \item Flexible work arrangements
+      \item Other (please specify)
+    \end{itemize}
+\end{enumerate}
+
 
 ## Survey Completion Message
 
