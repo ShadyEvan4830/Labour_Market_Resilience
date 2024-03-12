@@ -115,4 +115,4 @@ cate_data <- rbind(No_Response,tweenties,forties,sixties,eighties,more,total)
 cate_data <- data.frame(cbind(Hours,cate_data))
 colnames(cate_data) <- year
 
-write.csv(cate_data,""/inputs/data/cleaned_categorized_data.csv")
+write.csv(cate_data,"/inputs/data/cleaned_categorized_data.csv")
