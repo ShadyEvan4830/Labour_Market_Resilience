@@ -326,6 +326,7 @@ ggplot(non_response_data, aes(x = years,y=non_response_rate)) +
 # Appendix {-}
 
 ## Survey Introduction
+
 The supplemental survey is available here: [Google Form Link](https://forms.gle/Ffma5ggEcP6wfumu6)
 
 Welcome to our survey, which builds on our research analyzing the impact of economic downturns on labour dynamics in the U.S. from 1972 to 2022, based on the General Social Survey (GSS). The GSS collects information and historical records of respondents' attitudes and experiences. Our study has highlighted significant shifts in working hours, particularly during crises such as the 2008 Financial Crisis and the COVID-19 pandemic, affecting various demographic groups differently. This survey seeks to deepen our understanding of these impacts and gather more nuanced data on labour force participation across different economic conditions.
@@ -333,6 +334,7 @@ Welcome to our survey, which builds on our research analyzing the impact of econ
 Your participation is voluntary and confidential. You may skip any question or withdraw at any time. Responses are anonymized and will be used solely for research purposes. For any inquiries or additional information, please contact us at evan.hao@mail.utoronto.ca, mingjia.chen@mail.utoronto.ca, and/or catherine.punnoose@mail.utoronto.ca.
 
 ## Survey Questions
+
 \begin{itemize}
         \item Demographic Information:
             \begin{enumerate}
@@ -412,5 +414,8 @@ Your participation is voluntary and confidential. You may skip any question or w
             \end{enumerate}
 \end{itemize}
 
+## Survey Completion Message
+
+Thank you for participating in our survey. Your insights are invaluable to our ongoing research into labour market dynamics and the effects of economic downturns on working hours. Your contribution helps us identify areas for targeted interventions and policy recommendations to support vulnerable labour market groups.
 \newpage
 # References
