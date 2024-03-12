@@ -406,5 +406,8 @@ Your participation is voluntary and confidential. You may skip any question or w
 ## Survey Completion Message
 
 Thank you for participating in our survey. Your insights are invaluable to our ongoing research into labour market dynamics and the effects of economic downturns on working hours. Your contribution helps us identify areas for targeted interventions and policy recommendations to support vulnerable labour market groups.
+
+
 \newpage
+
 # References
