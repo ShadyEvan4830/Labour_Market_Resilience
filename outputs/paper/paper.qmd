@@ -8,7 +8,7 @@ author:
 thanks: "Code and data are available at: https://github.com/ShadyEvan4830/Labour_Market_Resilience.git"
 date: March 11, 2024
 date-format: long
-abstract: "First sentence, second sentence, third sentence."
+abstract: "Historically, economic crises have impacted labour market working patterns and employment levels, but are all groups within the labour market suffering from overall similar trends? This study uses data from the U.S. General Social Survey (GSS) to investigate the impact of major economic downturns on U.S. labour force dynamics, focusing specifically on “hours worked last week.” Analyzing changes in working hours reveals significant reductions, particularly affecting younger workers, those with less education, and women. These findings are important since they underscore the necessity for targeted interventions to support the most vulnerable groups in the labour market."
 format: pdf
 toc: true
 number-sections: true
@@ -35,7 +35,19 @@ library(ggplot2)
 
 # Introduction
 
-# Data
+Economic downturns from the 1998 Asian Financial Crisis and 2008 Global Financial Crisis to the unprecedented 2020 COVID-19 pandemic, have significantly shaped labour market landscapes, impacting employment patterns and work hours across the United States. These pivotal events, each unique in their severity and global reach, provide a crucial backdrop for examining the labour market's resilience and adaptability amidst fluctuating economic conditions. Yet, a critical question arises: How uniformly do these economic shifts affect various segments within the labour market, particularly regarding working hours?
+
+To explore this question, this paper focuses on the U.S. General Social Survey (GSS) [@GSS] data to concentrate on the "number of hours worked last week" as a primary metric for labour engagement. This study is predicated on the hypothesis that economic declines precipitate a decrease in labour engagement, evidenced by reduced work hours, with varying degrees of impact across different labour groups. Through a comparative analysis of periods marked by economic crises against times of economic stability, we aim to dissect the labour market's response mechanisms, spotlighting the sectors and demographic groups most susceptible to economic adversities.
+
+By analyzing the comprehensive GSS data, including variables such as gender, age, and career field, we seek to offer a granular understanding of how major economic crises influence work hours, thereby contributing to a broader discourse on labour market adaptability in the face of economic instability.
+
+Initial analysis reveals notable disparities: younger workers, those with less education, and women experience significant reductions in work hours during economic crises. This finding highlights the differential impact of economic downturns across demographic groups and signals the urgent need for targeted policy interventions to mitigate these disparities and bolster labour market resilience.
+
+The ensuing sections of this paper will outline the data's nature and scope, detail the analytical process and findings, and discuss these findings' broader implications for labour market dynamics amidst economic crises. The conclusion will synthesize the key insights derived from this analysis, and an appended supplementary survey will propose additional inquiries to explore labour market responses to economic downturns further.
+
+# Data {#sec-data}
+
+The paper uses data collected from the US General Social Survey (GSS) from NORIC at the University of Chicago [@gssFAQ]. From the dataset, this paper focuses on the "number of hours worked last week" variable, from the years 1972 to 2022. This longitudinal approach allows us to compare labour dynamics across different economic downturns, including the 1998 Asian Financial Crisis, the 2008 Global Financial Crisis, and the COVID-19 pandemic in 2020.
 
 ## Source Data
 
@@ -50,7 +62,7 @@ For the analysis, we retrieved the following data as described in @tbl-use-var.
 
 ## Data Cleaning
 
-The data was downloaded and filtered for the selected variables from the selected data variables from GSS[^1]. The data cleaning was performed based on value definitions as defined in the GSS codebook [@gssCodebook]. One of the variable names `response` is renamed to be more informative [@tbl-use-var].
+The data was downloaded and filtered for the selected variables from the selected data variables from GSS[^1]. The data cleaning was performed based on value definitions as defined in the GSS codebooks [@gssCodebook]. One of the variable names `response` is renamed to be more informative [@tbl-use-var].
 
 The data was thus been cleaned by using the open source statistically programming language R [@citeR], with libraries `tidyverse` [@tidyverse], `ggplot2` [@ggplot2], `dplyr` [@dplyr], `readr` [@readr], `tibble` [@tibble], `here` [@here], `kableExtra` [@kableExtra], `janitor` [@janitor], and `knitr` [@knitr].
 
@@ -76,11 +88,16 @@ kable(data_selected,row.names = FALSE)|>
   row_spec(6, hline_after = TRUE)
 ```
 
-## Data Limitations 
-
 ## Survey Methodology 
 
+From 1972 to 2018, the GSS was conducted through face-to-face interviews. In-person interviews facilitated a richer data collection environment, where interviewers could clarify ambiguities and probe deeper into responses. This mode of data collection was ideal and allowed interviewers to collect richer data. However, in response to the COVID-19 Pandemic, from 2020 to 2021, the GSS transitioned to web surveys as the primary method of collecting data. The GSS had a target population of English or Spanish speaking adults (18 years or older) living in households in the United States [@gssFAQ]. The broad criteria allows a wide range of participants to partake in the survey. However, individuals who do not meet the target population are considered out of scope for the survey. Individuals who are not English or Spanish speaking, with mental and/or physical conditions that prevent them from participating in the survey are considered to be out of scope for the GSS [@gssFAQ]. Adjustments in the GSS's respondent selection process, including changes to the Kish grid methodology, pose additional challenges by potentially skewing the demographic representation of respondents. The shift towards a web-based format might have disproportionately excluded older demographics, traditionally less engaged with online platforms, thereby affecting the survey's representativeness. This demographic shift is crucial, as older workers' employment patterns, which often include more stable, long-term positions or distinct challenges like age-related discrimination, are essential in comprehensively understanding labour market dynamics.
+
+Given the paper's emphasis on the number of hours worked specifically in the years 1998, 2008, and 2020, we focus on the methodology of the corresponding years. The survey queried participants with the question, "If working, full or part-time: How many hours did you work last week, at all jobs?" and categorized the responses by hours: No Response, 0-20, 21-40, 41-60, 61-80, and 80+. Significantly, between 1998 and 2022, the structure of the question has consistently remained the same. This consistency in formatting ensures the data's stability, facilitating a high level of consistency for thorough analysis. The data collected from 1998, 2008, and 2021 consists of a combination of in-person, telephone, and web surveys.
+
 ### 1998 Survey Methodology 
+
+The 1998 GSS used in-person interviews to collect data. A total of 2,832 surveys were conducted. English speaking individuals aged 18 or over who lived in non-institutional arrangements within the United States were independently drawn for the 1998 sample [@gssCodebook]. @fig-Survey-1998 shows a visual of the number of hours worked in 1998. 
+
 ```{r}
 #| label: fig-Survey-1998
 #| tbl-cap: Overview of the 1998 Survey Data 
@@ -102,6 +119,8 @@ ggplot(data, aes(x = "", y = X1998, fill = work_hours)) +
 
 ### 2008 Survey Methodology
 
+In 2006, the GSS implemented a new design that uses rotating panels instead of replicating cross-sectional design [@gssCodebook]. This design was used in the 2008 survey where 2,023 interviews were conducted as well as 1,536 reinterviews from respondents of the 2006 GSS [@gssCodebook2022]. This design uses a four year model from 2006, 2008, and 2010.  The survey used an independently drawn sample of English and Spanish speaking individuals living in non-institutional arrangements/households in the United States [@gssCodebook2014]. @fig-Survey-2008 serves as a visual of the number of hours worked in the year 2008. 
+
 ```{r}
 #| label: fig-Survey-2008
 #| tbl-cap: Overview of the 2008 Survey Data 
@@ -122,7 +141,18 @@ ggplot(data, aes(x = "", y = X2008, fill = work_hours)) +
 ```
 \break
 
+###  Strengths in the Survey Methodology 
+
+The survey's methodology has several strengths. From 1972 to 2018, data was gathered through face-to-face interviews, enabling interviewers to capture diverse and comprehensive information, providing a deeper understanding of respondents. Another notable strength is the survey's consistency. The General Social Survey (GSS) has maintained a uniform approach since 1972, with minimal alterations in questions and data collection methods each year. This consistency facilitates clear year-to-year analyses for researchers. The survey, traditionally administered through face-to-face interviews, transitioned to web surveys during the COVID-19 Pandemic. Relevance is another key strength of the GSS. It encompasses a broad spectrum of demographic, behavioural, and attitudinal questions, covering topics such as civil liberties, crime and violence, and psychological well-being among individuals in the United States [@gssCodebook2022]. With its almost annual frequency, the survey delivers up-to-date and pertinent information across various fields. Furthermore, the survey promotes accessibility by being available to the public. This means that anyone interested in the survey's results can freely access the data, enhancing transparency and openness in disseminating valuable information.
+
+### Limitations and Weaknesses of Data Collection
+
+Since 1972, the General Social Survey (GSS) has been gathering data primarily through face-to-face interviews, during which participants were interviewed using a structured questionnaire. This approach persisted until the onset of the COVID-19 Global Pandemic, which resulted in the suspension of data collection for the year 2020. Subsequently, the data collection methodology underwent a transition from in-person interviews to web-based questionnaires. This pandemic-induced shift introduced several variables that could potentially impact data quality and comparability. This alteration raises concerns and stands as a notable limitation on the accuracy of reported work hours and the perceived effects of economic crises. The move from traditional in-person interviews to web-based surveys brings uncertainties, as the absence of interactive guidance may lead to misinterpretations or superficial engagement with survey questions. An essential drawback in the dataset is the limited number of questions asked. Only a single survey question was asked, focusing only on obtaining numerical data regarding the respondent's worked hours. This weakness limits the understanding of the respondent's demographic details, posing a challenge in the analysis process.
+
 ### Gap in 2020 Data 
+
+Due to the COVID-19 Global Pandemic, the GSS Cross-section changed its method of collecting data from in-person interviews to web self-administered questionnaires. The purpose of this change was to ensure the safety of respondents and interviewers [@gssCodebook2022]. The absence of discrete data for 2020 represents a significant analytical challenge, particularly as this year was pivotal in understanding the labour market's immediate reaction to the pandemic's onset. The gap prevents a seamless analysis of the transition from pre-pandemic employment conditions to the upheavals initiated by COVID-19, such as mass layoffs and the rapid shift towards remote work. This omission obscures our view of the labour market's initial resilience and the effectiveness of the recovery efforts that followed, especially in sectors like hospitality and retail, which experienced direct and severe impacts from lockdown measures. To bridge the gap, this paper uses data collected in the 2021 GSS. @fig-Survey-2021 shows a visual of the number of hours worked in 2021. 
+
 ```{r}
 #| label: fig-Survey-2021
 #| tbl-cap: Overview of the 2021 Survey Data 
@@ -143,10 +173,16 @@ ggplot(data, aes(x = "", y = X2021, fill = work_hours)) +
 
 ### Non-responses
 
+To balance non-responses in the survey, the GSS subsampled non-respondents. The fundamental idea of subsampling involves taking a subset of nonrespondents and modifying the weights to maintain an unbiased design [@gssCodebook2014]. This selected subsample is then scaled up to accurately represent all nonrespondents up to the specified cutoff date. By concentrating efforts on a more manageable subset of challenging cases for additional attempts, subsampling has the potential to minimize both response error and nonresponse bias [@gssCodebook2014]. The GSS's approach to managing non-responses underwent changes, notably in its recent iterations – specifically during the COVID-19 Pandemic. As web surveys were used in the 2021 survey, modifications were made to balance non-responses. Historically, the survey employed subsampling techniques to mitigate the impact of non-responses, ensuring a representative dataset. However, with the introduction of web-based surveys, new categories like "Skipped on Web" were introduced to categorize non-responses. This change raises questions about the comparability of data across years and the potential for increased non-response rates. Non-responses can significantly affect the analysis of labour market trends, particularly in capturing the full extent of unemployment or underemployment during economic downturns. The handling of these non-responses requires scrutiny to assess how it might influence findings on work hours and job stability across different demographic groups and economic sectors.
+
 
 # Results
 
 ## Working Hour Comparison Between Financial Events 
+
+To more accurately depict the ramifications of economic crises, our study employed data from years closely following significant downturns, specifically comparing 2010 and 2021 to assess the aftermath of the 2008 financial crisis and the COVID-19 pandemic, respectively. Due to the absence of data for 2009 in the General Social Survey (GSS), these subsequent years served as our focal points for analysis. Our findings, when juxtaposed with data from a year of economic stability, 2018, reveal a notable decrease in working hours for both 2010 and 2021. 
+
+This trend in @fig-ave-hour-comparison underscores the tangible impact of economic crises on labour force engagement, highlighting that such downturns invariably lead to reductions in working hours. This evidence corroborates the premise that economic crises significantly influence the dynamics of work hours and affirms us the necessity of understanding and mitigating these effects to foster a resilient labour market.
 
 ```{r}
 #| label: fig-ave-hour-comparison
@@ -192,6 +228,9 @@ ggplot(average_hours,aes(x=years,y=averages)) +
 ```
 
 \break 
+
+The number of reports in different working hours between the years where the significant events happened were studied in @fig-cate-comparisons. According to the histograms, it is interesting that, although they have different numbers, the histograms of the categorized data from the years 1998, 2008, and 2021, and the total years recorded all fit in a similar trend. About half of the participants did not respond to the question. Aside from those who did not respond to the question, most of the participants worked between 40-60 hours and some worked between 21-40. Participants rarely worked over 80 hours. This could mean that even after suffering from significant historical events that negatively impact economics, the trend of working hours stays relatively similar to the general trend for data from 1997 to 2022. This finding does not mean that the numbers of reports for each working hour were the same: more participants responded to the question in the years 1998 and 2021 compared to the year 2008. This could mean that there were more job opportunities in 1998 and 2021 than in 2008. 
+
 
 ```{r}
 #| label: fig-cate-comparisons
@@ -244,6 +283,8 @@ ggplot(Data_Total,aes(x=work_hours,y= Total)) +
 
 \break
 
+Non-response rates we illustrated in @fig-nonresponse-rate, in addition, could help indicate a significant difference in participants and data collection between the years. The year 1972, for example, is evidence of the gap in the data set; even though it is included in the data set, the non-response rate is 100%, meaning that no answers to this question were collected during that year. The non-response rate in general is similar among the years, not indicating significant differences between the years even during the financial crisis. 
+ 
 ## Nonreponse Rate
 ```{r}
 #| label: fig-nonresponse-rate
@@ -301,25 +342,70 @@ ggplot(non_response_data, aes(x = years,y=non_response_rate)) +
 
 # Discussion
 
+We find that a downward trend in the economy leads to a similar decline in labour force hours and hours worked, although the impact is felt differently across industries and demographic groups; this emphasizes the multifaceted nature of the labour market and economic pressures.
+
 ## Labour Market Response Across Economic Crises
 
-## Demographic Disparities in Labour Market Participation
+GSS Data [^1] provides hours worked before and after a severe recession to reveal the trend of fewer hours worked during periods of economic instability, as @fig-ave-hour-comparison shows. The research perspective of @Wang_Madsen_Steiner_2016 shows that during the 2008 financial crisis, working hours in industries such as manufacturing and construction decreased significantly, mainly due to their direct link to the economic cycle. These industries tend to respond quickly to economic downturns because of their reliance on consumer demand and investment, which typically decline during financial crises. The above reflects the direct impact of the economic cycle on directly related industries, resulting in reduced working hours. In contrast, working hours in health care and education are more stable. These industries are somewhat insulated from an immediate economic downturn because demand for their services remains consistent regardless of the economic environment. Especially during times of crisis such as a pandemic, the need for healthcare may even increase.
 
-### Younger Workers and Educational Attainment
+The COVID-19 pandemic has brought new disruptions to the labour market, with an unprecedented shift to remote work and flexible work arrangements. By analyzing GSS data and @fig-ave-hour-comparison shows that 2021, a pandemic year, has experienced a more serious decline in working hours than in 1998 and 2008. The research of 
+@Chen_Yeh_2021 explains that this is because sectors that have traditionally been limited to physical presence, such as retail and hospitality, have faced even more significant challenges during COVID compared with historical economic crises, which have led to more substantial job losses and reduced hours. In contrast, sectors that have been able to transition to remote operations, such as information technology and professional services, have seen less impact on working hours, highlighting the changing nature of work in response to external shocks.
 
-### Women in the Labour Market
+## COVID-19’s Sharply Reduced Working Hours and Women in the Labour Market
 
-## Political Affiliation and Labour Market Perceptions
+The insights from @Chen_Yeh_2021 can further help us analyze the reasons for the substantial decrease in working hours in 2021. @Chen_Yeh_2021 believe women face unique challenges during the COVID-19 pandemic, not only because they are overrepresented in industries such as hospitality and retail, which have been severely affected by lockdowns and restrictions, but also Because of increased caring responsibilities. @Singh_Shirazi_Turetken_2022 suggests that women have to cope with the dual pressures of work and family responsibilities more than their male counterparts. School closures and the need for childcare have placed additional burdens on women, with significant impacts on their working hours and labour force participation.
 
-##  Ethical Considerations and Bias
+## Ethical Considerations and Bias
+
+We believe that ethical considerations and minimizing bias are cornerstones of responsible research, particularly when delving into labour market responses to economic downturns. Our approach to ethics and bias therefore emphasizes informed consent, privacy and data protection.
+
+We agree that strong measures should be in place to ensure participant confidentiality and data protection, as mentioned in the GSS codebook [@gssCodebook]. This involves using a secure database to store sensitive information and encrypting participant details to prevent unauthorized access.
+
+In addition, we adopted several strategies to address potential bias in our research. Recognizing the risk of sampling bias, whereby certain groups may be over-represented, we have diversified our outreach methods. Inspired by the GSS codebook [@gssCodebook], we recommend that new survey approaches post-2020 could reach participants through a variety of channels, including social media, community communications, and local organizations to ensure a broad range of demographics.
 
 ## Limitations
 
-## Future Research
+Our analysis grounded in the rich dataset provided by the General Social Survey (GSS) [^1], navigates through a complex terrain of labour market dynamics in the wake of economic crises. However, as mentioned in the data @sec-data, several limitations inherent to the dataset and the broader research approach necessitate a cautious interpretation of our findings.
+
+The original data only provides simple data on working hours, but in @gssCodebook, GSS has a detailed explanation of the data survey method, such as interviewing random people through questionnaires. The sensitive nature of questions related to economic hardships and employment challenges may lead to a degree of response bias. Despite advancements in survey techniques since the 1970s, the discomfort associated with disclosing personal economic impacts or job losses can limit the diversity and authenticity of responses collected. Framing questions within the GSS regarding employment and economic resilience may also inadvertently reflect biases or presuppositions. This phenomenon could mirror previous findings where respondents mask their true beliefs on topics, potentially skewing the data towards more socially acceptable responses.
+
+Further analysis [@gssCodebook], the ambiguity of survey question phrasing and response options poses another challenge. Economic crises and their effects are multifaceted, with nuances that single-answer survey questions might not fully capture. The lack of open-ended questions or opportunities for respondents to elaborate on their experiences restricts our understanding of the depth and breadth of economic downturns' impacts on individual work patterns and perceptions.
+
+In addition to the above, the evolving nature of the labour market, marked by the rise of gig work, remote employment, and the digital economy, poses significant challenges to capturing the full spectrum of employment experiences during economic downturns. These changes underscore the need for survey methodologies to adapt and evolve, ensuring that emerging forms of work and employment are adequately represented in the data.
+
+While it is fitting that necessary updates to survey methods, the change in GSS's methodology [^1], including sampling techniques and data collection strategies, can introduce inconsistencies in longitudinal data, complicating efforts to draw definitive conclusions about trends over time. For example, in 2020, due to COVID-19, most of the data were suspended and a small part was combined with online surveys, making it controversial to put it together with the previous year's data recorded according to normal procedures.
+
+The demographic representation within the GSS data warrants careful consideration. Variations in sample composition by gender, age, education level, and other demographic factors can influence the generalizability of our findings. We worry that the potential for overrepresentation or underrepresentation of certain groups underscores the importance of employing robust analytical techniques to account for these disparities and interpret the data within the context of its limitations.
+
+Finally, our paper also has certain limitations in processing data as shown in data @sec-data. One limitation stems from our decision to analyze the years immediately following the economic crisis (2010 and 2021) rather than the year immediately following the recession itself. This choice was made partly because of the lack of data for 2009 in the General Social Survey (GSS), necessitating the need to use 2010 (the second year of the economic crisis) as a proxy to measure the post-crisis impact of the 2008 financial recession. Likewise, given the unprecedented impact of the COVID-19 pandemic in 2020, the selection of 2021 was intended to capture its consequences rather than 2022, which could be compared to the 2010 selection.
+
+This methodological decision, while practical, introduces a temporal shift that may not fully capture the direct impact of the economic crisis on working hours. The absence of 2009 GSS data leaves a significant gap in our longitudinal analysis because it limits our ability to directly compare the pre-crisis, crisis, and post-crisis periods consistently.
 
 ## Journal Study: Directions on Non-response Rates
 
+In addressing non-response rates within labour market surveys, @Groves_Peytcheva_2008 provides some suggestions for directions for our consideration. They advocate for tailored communication and mixed-mode survey approaches as effective measures against non-response bias (Journal of Official Statistics, 24(2), 167-189). For instance, future research could look into the success of the Health and Retirement Study, which employs a mixed-mode design, combining in-person interviews with telephone and online follow-ups to accommodate participant preferences and improve response rates. These examples underscore the potential of adopting innovative methodologies and technologies in labour market surveys to ensure more representative data.
+
+## Future Research
+
+Based on the insights and limitations discussed previously, we propose some potential future research directions to address these challenges.
+
+To tackle response bias, a common hurdle in surveys on sensitive topics like economic impact, future efforts could lean more heavily into techniques that safeguard participant anonymity and confidentiality. For example, the Pew Research Center's [@Pew_Research_Center_2021] method of ensuring anonymity in their political opinion polls could serve as a model, enhancing respondent confidence and honesty. Briefly, their approach is characterized by random sampling to select representativeness. The main thing is that they will demonstrate to the public how the respondent's data is protected through encryption and strict privacy protocols, ensuring that no personally identifiable information is recorded or stored.
+
+Survey design also requires attention to minimize ambiguity and enhance response quality. Future surveys could take a leaf from the book of market research, where detailed response options and open-ended questions are standard. This would help capture the full spectrum of employment experiences during crises. Pre-testing questions, a strategy often employed by the Census Bureau, could ensure questions are understood as intended, improving the quality of data collected.
+
+In addition, addressing demographic disparities calls for a focused examination of how different identities intersect to impact labour market experiences. Drawing inspiration from studies like the Health and Retirement Study, which investigates how socio-demographic factors affect retirement planning, future research could explore how race, gender, age, and education level intertwine to influence employment patterns during economic challenges.
+
+For future labour market survey research, we refer to the method proposed by Groves and Peytcheva [@Groves_Peytcheva_2008] above to eliminate non-response rates and bias as much as possible. We recommend a hybrid offline and online survey design; this approach can improve participation rates and data representativeness by accommodating a wider range of respondent preferences and accessibility. For example, incorporating new technologies such as mobile survey apps or secure online platforms could reduce participation barriers.
+
+Regarding the limitations of our data processing methods, an essential way to solve the above limitations for future research is to use more diverse data sources and methodologies. We should consider utilizing or fusing other databases to fill in the gap years in the GSS data, such as 2009, to more fully capture the direct impact of the economic crisis and its immediate response to the labour market.
+
+By combining these targeted strategies with examples of existing research practice, we believe that future research can more effectively capture labour market outcomes related to hours worked and the economy.
+
 # Conclusion
+
+In summary, we used U.S. General Social Survey (GSS) data [^1] to study the impact of economic recessions on labour force dynamics from 1972 to 2022, trying to prove that economic downturns lead to a decline in average working hours. Our findings show that hours worked did fall during different recessions, notably the 1998 Asian Financial Crisis, the 2008 Financial Crisis and the COVID-19 pandemic in 2020, with the 2021 data showing the steepest decline. By analyzing studies in other academic journals, including @Wang_Madsen_Steiner_2016, @Chen_Yeh_2021, @Groves_Peytcheva_2008, @Pew_Research_Center_2021, and @Singh_Shirazi_Turetken_2022, we believe that potential Reasons for this include the varying degrees of dependence of industries on the economic cycle and the increase in various social issues, such as the uneven impact on different industries and the fact that women have been disproportionately hit harder by family during COVID. 
+
+However, during the analysis process, we also found that there are some limitations in the GSS study, such as changes in data collection methods and the processing of non-response rates. Future research could explore how to overcome these limitations by addressing factors such as response bias and balancing demographic differences. While our study poses challenges, we cannot allow progress in labour market equality and adaptability to take decades more to achieve. Future research should focus on exploring effective policies to support the groups most vulnerable to economic hardship and ensure that working hours in the labour market are not too severely affected.
 
 \appendix
 
