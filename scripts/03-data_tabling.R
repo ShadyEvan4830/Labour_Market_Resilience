@@ -1,5 +1,5 @@
 #### Preamble ####
-# Purpose: GSS Tables and Graphs for the Paper
+# Purpose: Code for replicating GSS Tables and Graphs in the Paper
 # Author: Mingjia Chen, Catherine Punnoose, Tianen (Evan) Hao
 # Date: 11 March 2024 
 # Contact: mingjia.chen@mail.utoronto.ca 

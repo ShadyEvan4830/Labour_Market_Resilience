@@ -1,6 +1,6 @@
 ---
 title: "U.S. Labour Market Resilience"
-subtitle: "Impact Analysis of Economic Crises on Industry Work Hours in 1998, 2008 and 2020"
+subtitle: "Analysis of Economic Crises on Industry Work Hours in 1998, 2008 and 2020 US General Social Surveys"
 author: 
   - Mingjia Chen
   - Catherine Punnoose
@@ -48,7 +48,7 @@ This paper begins with an [Introduction] framing the impact of economic downturn
 
 # Data {#sec-data}
 
-The paper uses data collected from the US General Social Survey (GSS) from NORIC at the University of Chicago [@gssFAQ]. From the dataset, this paper focuses on the "number of hours worked last week" variable, from the years 1972 to 2022. This longitudinal approach allows us to compare labour dynamics across different economic downturns, including the 1998 Asian Financial Crisis, the 2008 Global Financial Crisis, and the COVID-19 pandemic in 2020.
+The paper uses data collected from the US General Social Survey (GSS) from NORIC at the University of Chicago [@GSS]. From the dataset, this paper focuses on the "number of hours worked last week" variable, from the years 1972 to 2022. This longitudinal approach allows us to compare labour dynamics across different economic downturns, including the 1998 Asian Financial Crisis, the 2008 Global Financial Crisis, and the COVID-19 pandemic in 2020.
 
 ## Source Data
 
@@ -65,9 +65,9 @@ For the analysis, we retrieved the following data as described in @tbl-use-var.
 
 ## Data Cleaning
 
-The data was downloaded and filtered for the selected variables from the selected data variables from GSS[^1]. The data cleaning was performed based on value definitions as defined in the GSS codebooks [@gssCodebook]. One of the variable names `response` is renamed to be more informative [@tbl-use-var].
+The data was downloaded and filtered for the selected variables from the selected data variables from GSS[^1]. The data cleaning was performed based on value definitions as defined in the GSS codebooks [@gssCodebook]. One of the variable names `response` is renamed to be more informative (@tbl-use-var).
 
-The data was thus been cleaned by using the open source statistically programming language R [@citeR], with libraries `tidyverse` [@tidyverse], `ggplot2` [@ggplot2], `dplyr` [@dplyr], `readr` [@readr], `tibble` [@tibble], `here` [@here], `kableExtra` [@kableExtra], `janitor` [@janitor], and `knitr` [@knitr].
+The data was cleaned by using the open source statistically programming language R [@citeR], with libraries `tidyverse` [@tidyverse], `ggplot2` [@ggplot2], `dplyr` [@dplyr], `readr` [@readr], `tibble` [@tibble], `here` [@here], `kableExtra` [@kableExtra], `janitor` [@janitor], and `knitr` [@knitr].
 
 [^1]: https://gss.norc.org/documents/stata/GSS_stata.zip
 
@@ -78,7 +78,7 @@ The data was thus been cleaned by using the open source statistically programmin
 #| warning: false
 #| message: false
 
-data <- read.csv(here::here("inputs/data/cleaned_categorized_data.csv"))
+data <- read.csv(here::here("data/analysis_data/cleaned_categorized_data.csv"))
 # Delete the column
 data <- data[c(2:ncol(data))]
 colnames(data)[1] <- "Work Hours/Years"
@@ -93,7 +93,7 @@ kable(data_selected,row.names = FALSE)|>
 
 ## Survey Methodology 
 
-From 1972 to 2018, the GSS was conducted through face-to-face interviews. In-person interviews facilitated a richer data collection environment, where interviewers could clarify ambiguities and probe deeper into responses. This mode of data collection was ideal and allowed interviewers to collect richer data. However, in response to the COVID-19 Pandemic, from 2020 to 2021, the GSS transitioned to web surveys as the primary method of collecting data. The GSS had a target population of English or Spanish speaking adults (18 years or older) living in households in the United States [@gssFAQ]. The broad criteria allows a wide range of participants to partake in the survey. However, individuals who do not meet the target population are considered out of scope for the survey. Individuals who are not English or Spanish speaking, with mental and/or physical conditions that prevent them from participating in the survey are considered to be out of scope for the GSS [@gssFAQ]. Adjustments in the GSS's respondent selection process, including changes to the Kish grid methodology, pose additional challenges by potentially skewing the demographic representation of respondents. The shift towards a web-based format might have disproportionately excluded older demographics, traditionally less engaged with online platforms, thereby affecting the survey's representativeness. This demographic shift is crucial, as older workers' employment patterns, which often include more stable, long-term positions or distinct challenges like age-related discrimination, are essential in comprehensively understanding labour market dynamics.
+From 1972 to 2018, the GSS was conducted through face-to-face interviews. In-person interviews facilitated a richer data collection environment, where interviewers could clarify ambiguities and probe deeper into responses. This mode of data collection was ideal and allowed interviewers to collect richer data. However, in response to the COVID-19 Pandemic, from 2020 to 2021, the GSS transitioned to web surveys as the primary method of collecting data. The GSS had a target population of English or Spanish speaking adults (18 years or older) living in households in the United States [@GSS]. The broad criteria allows a wide range of participants to partake in the survey. However, individuals who do not meet the target population are considered out of scope for the survey. Individuals who are not English or Spanish speaking, with mental and/or physical conditions that prevent them from participating in the survey are considered to be out of scope for the GSS [@GSS]. Adjustments in the GSS's respondent selection process, including changes to the Kish grid methodology, pose additional challenges by potentially skewing the demographic representation of respondents. The shift towards a web-based format might have disproportionately excluded older demographics, traditionally less engaged with online platforms, thereby affecting the survey's representativeness. This demographic shift is crucial, as older workers' employment patterns, which often include more stable, long-term positions or distinct challenges like age-related discrimination, are essential in comprehensively understanding labour market dynamics.
 
 Given the paper's emphasis on the number of hours worked specifically in the years 1998, 2008, and 2020, we focus on the methodology of the corresponding years. The survey queried participants with the question, "If working, full or part-time: How many hours did you work last week, at all jobs?" and categorized the responses by hours: No Response, 0-20, 21-40, 41-60, 61-80, and 80+. Significantly, between 1998 and 2022, the structure of the question has consistently remained the same. This consistency in formatting ensures the data's stability, facilitating a high level of consistency for thorough analysis. The data collected from 1998, 2008, and 2021 consists of a combination of in-person, telephone, and web surveys.
 
@@ -120,7 +120,7 @@ Due to the COVID-19 Global Pandemic, the GSS Cross-section changed its method of
 ```{r}
 #| label: fig-cate-comparisons
 #| fig-cap: Categorical Working Hour Comparison between the Years
-#| fig-subcap: ["Asian Financial Crisis (1998)","World Financial Crisis(2008)","During Covid-19 Pandemic (2021)", "Total"]
+#| fig-subcap: ["Asian Financial Crisis (1998)","World Financial Crisis (2008)","During Covid-19 Pandemic (2021)", "Total"]
 #| layout-ncol: 2
 #| echo: false
 #| warning: false
@@ -128,8 +128,9 @@ Due to the COVID-19 Global Pandemic, the GSS Cross-section changed its method of
 
 #still need to modify the graphs
 
-data <- read.csv(here::here("inputs/data/cleaned_categorized_data.csv"))
+data <- read.csv(here::here("data/analysis_data/cleaned_categorized_data.csv"))
 data <- data[c(2:ncol(data))]
+data <- data[1:6,]
 # Get rid of the first letter X for each of the years
 colnames(data) <- gsub("X", "", colnames(data))
 
@@ -180,7 +181,7 @@ To balance non-responses in the survey, the GSS subsampled non-respondents. The 
 #| message: false
 
 # Calculate percentages
-data <- read.csv(here::here("inputs/data/cleaned_categorized_data.csv"))
+data <- read.csv(here::here("data/analysis_data/cleaned_categorized_data.csv"))
 data <- data[c(2:ncol(data))]
 data <- data[1:6,]
 
@@ -199,7 +200,7 @@ no_response_data <- no_response_data[-length(no_response_data)]
 
 # Calculate total responses per year excluding the 'work_hours' and 'Total' columns
 
-data <- read.csv(here::here("inputs/data/cleaned_categorized_data.csv"))
+data <- read.csv(here::here("data/analysis_data/cleaned_categorized_data.csv"))
 data <- data[c(3:ncol(data))]
 
 total_responses_per_year <- as.vector(data[7,])
@@ -214,6 +215,7 @@ years <- gsub("X", "", years)
 non_response_rate <-as.vector(non_response_rate)
 non_response_rate <-unlist(non_response_rate)
 non_response_data <- data.frame(years,non_response_rate)
+non_response_data <-non_response_data[19:34,]
 
 # Plot using ggplot2
 ggplot(non_response_data, aes(x = years,y=non_response_rate)) +
@@ -241,7 +243,7 @@ This trend in @fig-ave-hour-comparison underscores the tangible impact of econom
 #| warning: false
 #| message: false
 
-data <- read.csv(here::here("inputs/data/cleaned_data.csv"))
+data <- read.csv(here::here("data/analysis_data/cleaned_data.csv"))
 # Get rid of the first letter X for each of the years
 colnames(data)[1] <- "work_hours"
 colnames(data) <- gsub("X", "", colnames(data))
@@ -267,14 +269,10 @@ sum[3] <- sum(hist_data$"2021" * hist_data$work_hours)
 averages <- round(sum/total_people) 
 years <- c("2010","2018","2021")
 
-average_hours <- data.frame(cbind(averages,years))
+average_hours <- data.frame(cbind(years,averages))
 
-ggplot(average_hours,aes(x=years,y=averages)) +
-  geom_bar(stat="identity") + 
-  theme_minimal() + # Make the theme neater
-  labs(x = "Year", y = "Average Working Hour") +
-  scale_color_brewer(palette = "Set1") +
-  theme(legend.position = "bottom")
+kable(average_hours,row.names = FALSE)|>
+  kable_styling()
 ```
 
 \break 
@@ -285,7 +283,7 @@ The number of reports in different working hours between the years where the sig
 
 \break
 
-## Nonreponse Rate
+## Nonresponse Rate
 
 Non-response rates we illustrated in @fig-nonresponse-rate, in addition, could help indicate a significant difference in participants and data collection between the years. The year 1972, for example, is evidence of the gap in the data set; even though it is included in the data set, the non-response rate is 100%, meaning that no answers to this question were collected during that year. The non-response rate in general is similar among the years, not indicating significant differences between the years even during the financial crisis. 
 
@@ -351,7 +349,7 @@ Survey design also requires attention to minimize ambiguity and enhance response
 
 In addition, addressing demographic disparities calls for a focused examination of how different identities intersect to impact labour market experiences. Drawing inspiration from studies like the Health and Retirement Study, which investigates how socio-demographic factors affect retirement planning, future research could explore how race, gender, age, and education level intertwine to influence employment patterns during economic challenges.
 
-For future labour market survey research, we refer to the method proposed by Groves and Peytcheva [@Groves_Peytcheva_2008] above to eliminate non-response rates and bias as much as possible. We recommend a hybrid offline and online survey design; this approach can improve participation rates and data representativeness by accommodating a wider range of respondent preferences and accessibility. For example, incorporating new technologies such as mobile survey apps or secure online platforms could reduce participation barriers.
+For future labour market survey research, we refer to the method proposed by @Groves_Peytcheva_2008 above to eliminate non-response rates and bias as much as possible. We recommend a hybrid offline and online survey design; this approach can improve participation rates and data representativeness by accommodating a wider range of respondent preferences and accessibility. For example, incorporating new technologies such as mobile survey apps or secure online platforms could reduce participation barriers.
 
 Regarding the limitations of our data processing methods, an essential way to solve the above limitations for future research is to use more diverse data sources and methodologies. We should consider utilizing or fusing other databases to fill in the gap years in the GSS data, such as 2009, to more fully capture the direct impact of the economic crisis and its immediate response to the labour market.
 
