@@ -170,12 +170,65 @@ ggplot(Data_Total,aes(x=work_hours,y= Total)) +
 
 ### Non-responses
 
-To balance non-responses in the survey, the GSS subsampled non-respondents. The fundamental idea of subsampling involves taking a subset of nonrespondents and modifying the weights to maintain an unbiased design [@gssCodebook2014]. This selected subsample is then scaled up to accurately represent all nonrespondents up to the specified cutoff date. By concentrating efforts on a more manageable subset of challenging cases for additional attempts, subsampling has the potential to minimize both response error and nonresponse bias [@gssCodebook2014]. The GSS's approach to managing non-responses underwent changes, notably in its recent iterations – specifically during the COVID-19 Pandemic. As web surveys were used in the 2021 survey, modifications were made to balance non-responses. Historically, the survey employed subsampling techniques to mitigate the impact of non-responses, ensuring a representative dataset. However, with the introduction of web-based surveys, new categories like "Skipped on Web" were introduced to categorize non-responses. This change raises questions about the comparability of data across years and the potential for increased non-response rates. Non-responses can significantly affect the analysis of labour market trends, particularly in capturing the full extent of unemployment or underemployment during economic downturns. The handling of these non-responses requires scrutiny to assess how it might influence findings on work hours and job stability across different demographic groups and economic sectors.
+To balance non-responses in the survey, the GSS subsampled non-respondents. The fundamental idea of subsampling involves taking a subset of nonrespondents and modifying the weights to maintain an unbiased design [@gssCodebook2014]. This selected subsample is then scaled up to accurately represent all nonrespondents up to the specified cutoff date. By concentrating efforts on a more manageable subset of challenging cases for additional attempts, subsampling has the potential to minimize both response error and nonresponse bias [@gssCodebook2014]. The GSS's approach to managing non-responses underwent changes, notably in its recent iterations – specifically during the COVID-19 Pandemic. As web surveys were used in the 2021 survey, modifications were made to balance non-responses. Historically, the survey employed subsampling techniques to mitigate the impact of non-responses, ensuring a representative dataset. However, with the introduction of web-based surveys, new categories like "Skipped on Web" were introduced to categorize non-responses. This change raises questions about the comparability of data across years and the potential for increased non-response rates (@fig-nonresponse-rate). Non-responses can significantly affect the analysis of labour market trends, particularly in capturing the full extent of unemployment or underemployment during economic downturns. The handling of these non-responses requires scrutiny to assess how it might influence findings on work hours and job stability across different demographic groups and economic sectors.
 
+```{r}
+#| label: fig-nonresponse-rate
+#| fig-cap: Nonresponse Rates
+#| echo: false
+#| warning: false
+#| message: false
+
+# Calculate percentages
+data <- read.csv(here::here("inputs/data/cleaned_categorized_data.csv"))
+data <- data[c(2:ncol(data))]
+data <- data[1:6,]
+
+#colnames(data) <- paste(colnames(data),"Year",sep="_") 
+
+colnames(data)<- as.character(colnames(data))
+
+#data_long <- data %>% 
+#  pivot_longer(cols = everything(), names_to = "WorkHours", values_to #= "Response")
+
+# Select the 'No Response' row and remove the first column which is not needed for the plot
+no_response_data <- data[data$work_hours == 'No Response', -1]
+
+# We also need to remove the 'Total' column as we did in the Python example
+no_response_data <- no_response_data[-length(no_response_data)]
+
+# Calculate total responses per year excluding the 'work_hours' and 'Total' columns
+
+data <- read.csv(here::here("inputs/data/cleaned_categorized_data.csv"))
+data <- data[c(3:ncol(data))]
+
+total_responses_per_year <- as.vector(data[7,])
+total_responses_per_year <- unlist(total_responses_per_year)
+
+# Calculate non-response rate as a percentage
+non_response_rate <- (no_response_data / total_responses_per_year) * 100
+
+years <- colnames(non_response_rate)
+years <- gsub("X", "", years)
+
+non_response_rate <-as.vector(non_response_rate)
+non_response_rate <-unlist(non_response_rate)
+non_response_data <- data.frame(years,non_response_rate)
+
+# Plot using ggplot2
+ggplot(non_response_data, aes(x = years,y=non_response_rate)) +
+  geom_bar(stat = "identity",fill = "skyblue") +
+  theme_minimal() +
+  labs(title = "Non-Response Rate by Year", x = "Year", y = "Percentage of Non-Responses") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+
+```
+
+\break
 
 # Results {#sec-results}
 
-## Working Hour Comparison Between Financial Events 
+## Average Working Hour Comparison Between Financial Events 
 
 To more accurately depict the ramifications of economic crises, our study employed data from years closely following significant downturns, specifically comparing 2010 and 2021 to assess the aftermath of the 2008 financial crisis and the COVID-19 pandemic, respectively. Due to the absence of data for 2009 in the General Social Survey (GSS), these subsequent years served as our focal points for analysis. Our findings, when juxtaposed with data from a year of economic stability, 2018, reveal a notable decrease in working hours for both 2010 and 2021. 
 
@@ -235,60 +288,6 @@ The number of reports in different working hours between the years where the sig
 ## Nonreponse Rate
 
 Non-response rates we illustrated in @fig-nonresponse-rate, in addition, could help indicate a significant difference in participants and data collection between the years. The year 1972, for example, is evidence of the gap in the data set; even though it is included in the data set, the non-response rate is 100%, meaning that no answers to this question were collected during that year. The non-response rate in general is similar among the years, not indicating significant differences between the years even during the financial crisis. 
-
-```{r}
-#| label: fig-nonresponse-rate
-#| fig-cap: Nonresponse Rates
-#| echo: false
-#| warning: false
-#| message: false
-
-# Calculate percentages
-data <- read.csv(here::here("inputs/data/cleaned_categorized_data.csv"))
-data <- data[c(2:ncol(data))]
-data <- data[1:6,]
-
-#colnames(data) <- paste(colnames(data),"Year",sep="_") 
-
-colnames(data)<- as.character(colnames(data))
-
-#data_long <- data %>% 
-#  pivot_longer(cols = everything(), names_to = "WorkHours", values_to #= "Response")
-
-# Select the 'No Response' row and remove the first column which is not needed for the plot
-no_response_data <- data[data$work_hours == 'No Response', -1]
-
-# We also need to remove the 'Total' column as we did in the Python example
-no_response_data <- no_response_data[-length(no_response_data)]
-
-# Calculate total responses per year excluding the 'work_hours' and 'Total' columns
-
-data <- read.csv(here::here("inputs/data/cleaned_categorized_data.csv"))
-data <- data[c(3:ncol(data))]
-
-total_responses_per_year <- as.vector(data[7,])
-total_responses_per_year <- unlist(total_responses_per_year)
-
-# Calculate non-response rate as a percentage
-non_response_rate <- (no_response_data / total_responses_per_year) * 100
-
-years <- colnames(non_response_rate)
-years <- gsub("X", "", years)
-
-non_response_rate <-as.vector(non_response_rate)
-non_response_rate <-unlist(non_response_rate)
-non_response_data <- data.frame(years,non_response_rate)
-
-# Plot using ggplot2
-ggplot(non_response_data, aes(x = years,y=non_response_rate)) +
-  geom_bar(stat = "identity",fill = "skyblue") +
-  theme_minimal() +
-  labs(title = "Non-Response Rate by Year", x = "Year", y = "Percentage of Non-Responses") +
-  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
-
-```
-
-\break
 
 # Discussion {#sec-discussion}
 
