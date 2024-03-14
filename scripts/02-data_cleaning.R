@@ -35,25 +35,22 @@ colnames(data) <- gsub("X", "", colnames(data))
 # Rename part of the row names 
 #(i.e. change .i Inapplicable into Inapplicable for better
 #data representation) 
-rownames(data)[1] <- "Inapplicable"
-rownames(data)[2] <- "No answer"
-rownames(data)[3] <- "Do not Know/Cannot Choose"
-rownames(data)[4] <- "Skipped on Web"
+rownames(data)[1:4] <- c("Inapplicable","No answer","Do not Know/Cannot Choose","Skipped on Web")
 
 # Save the cleaned data
 write.csv(data, "inputs/data/cleaned_data.csv")
 
-#Categorize Data============================
-data <- read.csv(here::here("inputs/data/cleaned_data.csv"))
+#### Categorize Data #####
 colnames(data)[1] <- "work_hours"
 colnames(data) <- gsub("X", "", colnames(data))
-
 cate_data <- data
+
 year <- colnames(data)
 Hours <- c("No Response","0-20","21-40","41-60","61-80","80+","Total")
 
 col_number <- ncol(cate_data) -1
 
+#summarize all the responses in one category
 filtered_df1 <- cate_data %>%
   filter(work_hours < 20) 
 
@@ -107,10 +104,12 @@ for(i in 1:col_number){
   No_Response[i] <- sum(filtered_df6[, i+1])
 }
 
+#remove unwanted dataframes
 rm(filtered_df1,filtered_df2,filtered_df3,filtered_df4,filtered_df5,filtered_df6)
 
-total <- data[95,2:36]
+total <- data[95,2:35]
 
+#combine all the data
 cate_data <- rbind(No_Response,tweenties,forties,sixties,eighties,more,total)
 cate_data <- data.frame(cbind(Hours,cate_data))
 colnames(cate_data) <- year
