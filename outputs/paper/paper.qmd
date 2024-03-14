@@ -232,9 +232,10 @@ The number of reports in different working hours between the years where the sig
 
 \break
 
-Non-response rates we illustrated in @fig-nonresponse-rate, in addition, could help indicate a significant difference in participants and data collection between the years. The year 1972, for example, is evidence of the gap in the data set; even though it is included in the data set, the non-response rate is 100%, meaning that no answers to this question were collected during that year. The non-response rate in general is similar among the years, not indicating significant differences between the years even during the financial crisis. 
- 
 ## Nonreponse Rate
+
+Non-response rates we illustrated in @fig-nonresponse-rate, in addition, could help indicate a significant difference in participants and data collection between the years. The year 1972, for example, is evidence of the gap in the data set; even though it is included in the data set, the non-response rate is 100%, meaning that no answers to this question were collected during that year. The non-response rate in general is similar among the years, not indicating significant differences between the years even during the financial crisis. 
+
 ```{r}
 #| label: fig-nonresponse-rate
 #| fig-cap: Nonresponse Rates
@@ -365,7 +366,7 @@ However, during the analysis process, we also found that there are some limitati
 
 \appendix
 
-# Appendix {-}
+# Appendix
 
 ## Survey Introduction
 
