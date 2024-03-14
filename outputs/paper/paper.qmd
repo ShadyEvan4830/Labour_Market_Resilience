@@ -1,6 +1,6 @@
 ---
-title: "Labour Market Resilience"
-subtitle: "Economic Crisis Has Diverse Impacts on Industry Work Hours"
+title: "U.S. Labour Market Resilience"
+subtitle: "Impact Analysis of Economic Crises on Industry Work Hours in 1998, 2008 and 2020"
 author: 
   - Mingjia Chen
   - Catherine Punnoose
@@ -8,7 +8,7 @@ author:
 thanks: "Code and data are available at: https://github.com/ShadyEvan4830/Labour_Market_Resilience.git"
 date: March 11, 2024
 date-format: long
-abstract: "Historically, economic crises have impacted labour market working patterns and employment levels, but are all groups within the labour market suffering from overall similar trends? This study uses data from the U.S. General Social Survey (GSS) to investigate the impact of major economic downturns on U.S. labour force dynamics, focusing specifically on “hours worked last week.” Analyzing changes in working hours reveals significant reductions, particularly affecting younger workers, those with less education, and women. These findings are important since they underscore the necessity for targeted interventions to support the most vulnerable groups in the labour market."
+abstract: "Economic crises have impacted labour market working patterns and employment levels, but are all groups within the labour market suffering from similar trends? Focusing on the Asian Financial Crisis, the Global Financial Crisis, and the COVID-19 pandemic, this study uses data from the U.S. General Social Survey (GSS) to investigate the impact of major economic downturns on U.S. labour force dynamics, focusing specifically on “hours worked last week.” Our analysis reveals that economic downturns lead to a decline in average working hours, and identifies disparities in the effects of economic crises on demographic groups, with women and younger workers disproportionately affected. These findings underscore the necessity for targeted interventions to support the most vulnerable groups in the labour market."
 format: pdf
 toc: true
 number-sections: true
@@ -33,23 +33,26 @@ library(here)
 library(ggplot2)
 ```
 
-# Introduction
+# Introduction {#sec-intro}
 
-Economic downturns from the 1998 Asian Financial Crisis and 2008 Global Financial Crisis to the unprecedented 2020 COVID-19 pandemic, have significantly shaped labour market landscapes, impacting employment patterns and work hours across the United States. These pivotal events, each unique in their severity and global reach, provide a crucial backdrop for examining the labour market's resilience and adaptability amidst fluctuating economic conditions. Yet, a critical question arises: How uniformly do these economic shifts affect various segments within the labour market, particularly regarding working hours?
+Economic downturns, from the 1998 Asian Financial Crisis and 2008 Global Financial Crisis to the 2020 COVID-19 pandemic, have significantly impacted the U.S. labour market, affecting employment patterns and work hours. These events, unique in severity and reach, provide a crucial backdrop for examining labour market resilience and adaptability. A critical question arises: How uniformly do these shifts affect labour market segments, especially in work hours?
 
-To explore this question, this paper focuses on the U.S. General Social Survey (GSS) [@GSS] data to concentrate on the "number of hours worked last week" as a primary metric for labour engagement. This study is predicated on the hypothesis that economic declines precipitate a decrease in labour engagement, evidenced by reduced work hours, with varying degrees of impact across different labour groups. Through a comparative analysis of periods marked by economic crises against times of economic stability, we aim to dissect the labour market's response mechanisms, spotlighting the sectors and demographic groups most susceptible to economic adversities.
+This paper uses U.S. General Social Survey (GSS) [@GSS] data to examine the "number of hours worked last week" as a key measure of labour engagement. We hypothesize that economic downturns lead to decreased labour engagement, seen in reduced work hours, impacting labour groups differently. By comparing periods of economic crises with times of stability, we aim to understand the labour market's responses, focusing on the most affected sectors and demographic groups.
 
-By analyzing the comprehensive GSS data, including variables such as gender, age, and career field, we seek to offer a granular understanding of how major economic crises influence work hours, thereby contributing to a broader discourse on labour market adaptability in the face of economic instability.
+Our analysis of GSS data, including gender, age, and career field variables, seeks to provide detailed insights into how economic crises affect work hours, contributing to discussions on labour market flexibility during economic instability.
 
-Initial analysis reveals notable disparities: younger workers, those with less education, and women experience significant reductions in work hours during economic crises. This finding highlights the differential impact of economic downturns across demographic groups and signals the urgent need for targeted policy interventions to mitigate these disparities and bolster labour market resilience.
+Initial findings show disparities: younger workers, those with less education, and women face significant work-hour reductions during crises. This underscores the need for targeted policy interventions to address these disparities and strengthen labour market resilience.
 
-The ensuing sections of this paper will outline the data's nature and scope, detail the analytical process and findings, and discuss these findings' broader implications for labour market dynamics amidst economic crises. The conclusion will synthesize the key insights derived from this analysis, and an appended supplementary survey will propose additional inquiries to explore labour market responses to economic downturns further.
+This paper begins with an [Introduction] framing the impact of economic downturns on work hours. It is followed by the [Data] section detailing methodology and cleaning efforts. In the [Results], we analyze work hours and nonresponse rates, leading to the [Discussion] on labour market responses to crises, including the impact of COVID-19, and addressing ethical issues. We later acknowledge our paper's Limitations, suggest paths for Future Research, especially on enhancing response rates, and conclude with a synthesis of our insights. The [Appendix] provides further survey information.
+
 
 # Data {#sec-data}
 
 The paper uses data collected from the US General Social Survey (GSS) from NORIC at the University of Chicago [@gssFAQ]. From the dataset, this paper focuses on the "number of hours worked last week" variable, from the years 1972 to 2022. This longitudinal approach allows us to compare labour dynamics across different economic downturns, including the 1998 Asian Financial Crisis, the 2008 Global Financial Crisis, and the COVID-19 pandemic in 2020.
 
 ## Source Data
+
+From the dataset, we used the variable “response” to collect the respondent’s responses. For clarity, the variable was renamed to “work hours” as the respondent’s response was the number of hours they worked. Another variable used is “year”. The purpose of this variable is to collect the year the survey was conducted. 
 
 For the analysis, we retrieved the following data as described in @tbl-use-var.
 
@@ -107,13 +110,6 @@ The 1998 GSS used in-person interviews to collect data. A total of 2,832 surveys
 data <- read.csv(here::here("inputs/data/cleaned_categorized_data.csv"))
 data <- data[1:6,]
 
-ggplot(data, aes(x = "", y = X1998, fill = work_hours)) +
-  geom_bar(stat = "identity", width = 1) +
-  coord_polar("y", start = 0) +
-  scale_fill_brewer(palette = "Set3") +  # Use a color palette
-  theme_void() +  # Remove background and gridlines
-  labs(title = "1998 Survey Results") +
-  theme(plot.title = element_text(hjust = 0.5, size = 16))
 ```
 \break
 
@@ -131,13 +127,6 @@ In 2006, the GSS implemented a new design that uses rotating panels instead of r
 data <-read.csv(here::here("inputs/data/cleaned_categorized_data.csv"))
 data <- data[1:6,]
 
-ggplot(data, aes(x = "", y = X2008, fill = work_hours)) +
-  geom_bar(stat = "identity", width = 1) +
-  coord_polar("y", start = 0) +
-  scale_fill_brewer(palette = "Set3") +  # Use a color palette
-  theme_void() +  # Remove background and gridlines
-  labs(title = "2008 Survey Results") +
-  theme(plot.title = element_text(hjust = 0.5, size = 16))
 ```
 \break
 
@@ -162,13 +151,6 @@ Due to the COVID-19 Global Pandemic, the GSS Cross-section changed its method of
 data <- read.csv(here::here("inputs/data/cleaned_categorized_data.csv"))
 data <- data[1:6,]
 
-ggplot(data, aes(x = "", y = X2021, fill = work_hours)) +
-  geom_bar(stat = "identity", width = 1) +
-  coord_polar("y", start = 0) +
-  scale_fill_brewer(palette = "Set3") +  # Use a color palette
-  theme_void() +  # Remove background and gridlines
-  labs(title = "2021 Survey Results") +
-  theme(plot.title = element_text(hjust = 0.5, size = 16))
 ```
 
 ### Non-responses
@@ -176,7 +158,7 @@ ggplot(data, aes(x = "", y = X2021, fill = work_hours)) +
 To balance non-responses in the survey, the GSS subsampled non-respondents. The fundamental idea of subsampling involves taking a subset of nonrespondents and modifying the weights to maintain an unbiased design [@gssCodebook2014]. This selected subsample is then scaled up to accurately represent all nonrespondents up to the specified cutoff date. By concentrating efforts on a more manageable subset of challenging cases for additional attempts, subsampling has the potential to minimize both response error and nonresponse bias [@gssCodebook2014]. The GSS's approach to managing non-responses underwent changes, notably in its recent iterations – specifically during the COVID-19 Pandemic. As web surveys were used in the 2021 survey, modifications were made to balance non-responses. Historically, the survey employed subsampling techniques to mitigate the impact of non-responses, ensuring a representative dataset. However, with the introduction of web-based surveys, new categories like "Skipped on Web" were introduced to categorize non-responses. This change raises questions about the comparability of data across years and the potential for increased non-response rates. Non-responses can significantly affect the analysis of labour market trends, particularly in capturing the full extent of unemployment or underemployment during economic downturns. The handling of these non-responses requires scrutiny to assess how it might influence findings on work hours and job stability across different demographic groups and economic sectors.
 
 
-# Results
+# Results {#sec-results}
 
 ## Working Hour Comparison Between Financial Events 
 
@@ -340,7 +322,7 @@ ggplot(non_response_data, aes(x = years,y=non_response_rate)) +
 
 \break
 
-# Discussion
+# Discussion {#sec-discussion}
 
 We find that a downward trend in the economy leads to a similar decline in labour force hours and hours worked, although the impact is felt differently across industries and demographic groups; this emphasizes the multifaceted nature of the labour market and economic pressures.
 
@@ -354,6 +336,13 @@ The COVID-19 pandemic has brought new disruptions to the labour market, with an 
 ## COVID-19’s Sharply Reduced Working Hours and Women in the Labour Market
 
 The insights from @Chen_Yeh_2021 can further help us analyze the reasons for the substantial decrease in working hours in 2021. @Chen_Yeh_2021 believe women face unique challenges during the COVID-19 pandemic, not only because they are overrepresented in industries such as hospitality and retail, which have been severely affected by lockdowns and restrictions, but also Because of increased caring responsibilities. @Singh_Shirazi_Turetken_2022 suggests that women have to cope with the dual pressures of work and family responsibilities more than their male counterparts. School closures and the need for childcare have placed additional burdens on women, with significant impacts on their working hours and labour force participation.
+
+##  Policy Interventions: Short-Term Relief and Long-Term Resilience
+
+The significant drop in work hours during economic downturns underscores the importance of policy interventions and social welfare to support both immediate recovery and long-term labour market resilience. For example, during the COVID-19 pandemic, expanded unemployment benefits and direct financial aid provided critical support demonstrating effective short-term relief strategies, as @MacKinnon mentioned in his article.
+
+Furthermore, long-term measures, such as retraining programs for emerging sectors, emphasize the need for policies that bolster workforce adaptability. By equipping workers with new skills, these programs facilitate transitions to stable employment in growing industries. For the gig economy, particularly impacted by economic crises, requires policies ensuring social security benefits and income stability. Implementing health and safety standards for gig workers can also enhance their job security and well-being.
+
 
 ## Ethical Considerations and Bias
 
@@ -401,7 +390,7 @@ Regarding the limitations of our data processing methods, an essential way to so
 
 By combining these targeted strategies with examples of existing research practice, we believe that future research can more effectively capture labour market outcomes related to hours worked and the economy.
 
-# Conclusion
+# Conclusion {#sec-conclusion}
 
 In summary, we used U.S. General Social Survey (GSS) data [^1] to study the impact of economic recessions on labour force dynamics from 1972 to 2022, trying to prove that economic downturns lead to a decline in average working hours. Our findings show that hours worked did fall during different recessions, notably the 1998 Asian Financial Crisis, the 2008 Financial Crisis and the COVID-19 pandemic in 2020, with the 2021 data showing the steepest decline. By analyzing studies in other academic journals, including @Wang_Madsen_Steiner_2016, @Chen_Yeh_2021, @Groves_Peytcheva_2008, @Pew_Research_Center_2021, and @Singh_Shirazi_Turetken_2022, we believe that potential Reasons for this include the varying degrees of dependence of industries on the economic cycle and the increase in various social issues, such as the uneven impact on different industries and the fact that women have been disproportionately hit harder by family during COVID. 
 
