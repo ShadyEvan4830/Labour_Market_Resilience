@@ -99,36 +99,11 @@ Given the paper's emphasis on the number of hours worked specifically in the yea
 
 ### 1998 Survey Methodology 
 
-The 1998 GSS used in-person interviews to collect data. A total of 2,832 surveys were conducted. English speaking individuals aged 18 or over who lived in non-institutional arrangements within the United States were independently drawn for the 1998 sample [@gssCodebook]. @fig-Survey-1998 shows a visual of the number of hours worked in 1998. 
-
-```{r}
-#| label: fig-Survey-1998
-#| tbl-cap: Overview of the 1998 Survey Data 
-#| echo: false
-#| warning: false
-#| message: false
-data <- read.csv(here::here("inputs/data/cleaned_categorized_data.csv"))
-data <- data[1:6,]
-
-```
-\break
+The 1998 GSS used in-person interviews to collect data. A total of 2,832 surveys were conducted. English speaking individuals aged 18 or over who lived in non-institutional arrangements within the United States were independently drawn for the 1998 sample [@gssCodebook]. @fig-cate-comparisons shows a visual of the number of hours worked in 1998. 
 
 ### 2008 Survey Methodology
 
-In 2006, the GSS implemented a new design that uses rotating panels instead of replicating cross-sectional design [@gssCodebook]. This design was used in the 2008 survey where 2,023 interviews were conducted as well as 1,536 reinterviews from respondents of the 2006 GSS [@gssCodebook2022]. This design uses a four year model from 2006, 2008, and 2010.  The survey used an independently drawn sample of English and Spanish speaking individuals living in non-institutional arrangements/households in the United States [@gssCodebook2014]. @fig-Survey-2008 serves as a visual of the number of hours worked in the year 2008. 
-
-```{r}
-#| label: fig-Survey-2008
-#| tbl-cap: Overview of the 2008 Survey Data 
-#| echo: false
-#| warning: false
-#| message: false
-
-data <-read.csv(here::here("inputs/data/cleaned_categorized_data.csv"))
-data <- data[1:6,]
-
-```
-\break
+In 2006, the GSS implemented a new design that uses rotating panels instead of replicating cross-sectional design [@gssCodebook]. This design was used in the 2008 survey where 2,023 interviews were conducted as well as 1,536 reinterviews from respondents of the 2006 GSS [@gssCodebook2022]. This design uses a four year model from 2006, 2008, and 2010.  The survey used an independently drawn sample of English and Spanish speaking individuals living in non-institutional arrangements/households in the United States [@gssCodebook2014]. @fig-cate-comparisons serves as a visual of the number of hours worked in the year 2008. 
 
 ###  Strengths in the Survey Methodology 
 
@@ -140,18 +115,58 @@ Since 1972, the General Social Survey (GSS) has been gathering data primarily th
 
 ### Gap in 2020 Data 
 
-Due to the COVID-19 Global Pandemic, the GSS Cross-section changed its method of collecting data from in-person interviews to web self-administered questionnaires. The purpose of this change was to ensure the safety of respondents and interviewers [@gssCodebook2022]. The absence of discrete data for 2020 represents a significant analytical challenge, particularly as this year was pivotal in understanding the labour market's immediate reaction to the pandemic's onset. The gap prevents a seamless analysis of the transition from pre-pandemic employment conditions to the upheavals initiated by COVID-19, such as mass layoffs and the rapid shift towards remote work. This omission obscures our view of the labour market's initial resilience and the effectiveness of the recovery efforts that followed, especially in sectors like hospitality and retail, which experienced direct and severe impacts from lockdown measures. To bridge the gap, this paper uses data collected in the 2021 GSS. @fig-Survey-2021 shows a visual of the number of hours worked in 2021. 
+Due to the COVID-19 Global Pandemic, the GSS Cross-section changed its method of collecting data from in-person interviews to web self-administered questionnaires. The purpose of this change was to ensure the safety of respondents and interviewers [@gssCodebook2022]. The absence of discrete data for 2020 represents a significant analytical challenge, particularly as this year was pivotal in understanding the labour market's immediate reaction to the pandemic's onset. The gap prevents a seamless analysis of the transition from pre-pandemic employment conditions to the upheavals initiated by COVID-19, such as mass layoffs and the rapid shift towards remote work. This omission obscures our view of the labour market's initial resilience and the effectiveness of the recovery efforts that followed, especially in sectors like hospitality and retail, which experienced direct and severe impacts from lockdown measures. To bridge the gap, this paper uses data collected in the 2021 GSS. @fig-cate-comparisons shows a visual of the number of hours worked in 2021. 
 
 ```{r}
-#| label: fig-Survey-2021
-#| tbl-cap: Overview of the 2021 Survey Data 
+#| label: fig-cate-comparisons
+#| fig-cap: Categorical Working Hour Comparison between the Years
+#| fig-subcap: ["Asian Financial Crisis (1998)","World Financial Crisis(2008)","During Covid-19 Pandemic (2021)", "Total"]
+#| layout-ncol: 2
 #| echo: false
 #| warning: false
 #| message: false
-data <- read.csv(here::here("inputs/data/cleaned_categorized_data.csv"))
-data <- data[1:6,]
 
+#still need to modify the graphs
+
+data <- read.csv(here::here("inputs/data/cleaned_categorized_data.csv"))
+data <- data[c(2:ncol(data))]
+# Get rid of the first letter X for each of the years
+colnames(data) <- gsub("X", "", colnames(data))
+
+Data_1998 <- select(data,work_hours,`1998`)
+ggplot(Data_1998,aes(x=work_hours,y=`1998`)) +
+  geom_bar(stat="identity") + 
+  theme_minimal() + # Make the theme neater
+  labs(x = "Hours of Working", y = "Number of Reports") +
+  scale_color_brewer(palette = "Set1") +
+  theme(legend.position = "bottom")
+
+Data_2008 <- select(data,work_hours,`2008`)
+ggplot(Data_2008,aes(x=work_hours,y=`2008`)) +
+  geom_bar(stat="identity") + 
+  theme_minimal() + # Make the theme neater
+  labs(x = "Hours of Working", y = "Number of Reports") +
+  scale_color_brewer(palette = "Set1") +
+  theme(legend.position = "bottom")
+
+Data_2021 <- select(data,work_hours,`2021`)
+ggplot(Data_2021,aes(x=work_hours,y=`2021`)) +
+  geom_bar(stat="identity") + 
+  theme_minimal() + # Make the theme neater
+  labs(x = "Hours of Working", y = "Number of Reports") +
+  scale_color_brewer(palette = "Set1") +
+  theme(legend.position = "bottom")
+
+Data_Total <- select(data,work_hours,Total)
+ggplot(Data_Total,aes(x=work_hours,y= Total)) +
+  geom_bar(stat="identity") + 
+  theme_minimal() + # Make the theme neater
+  labs(x = "Hours of Working", y = "Number of Reports") +
+  scale_color_brewer(palette = "Set1") +
+  theme(legend.position = "bottom")
 ```
+
+\break
 
 ### Non-responses
 
@@ -214,54 +229,6 @@ ggplot(average_hours,aes(x=years,y=averages)) +
 The number of reports in different working hours between the years where the significant events happened were studied in @fig-cate-comparisons. According to the histograms, it is interesting that, although they have different numbers, the histograms of the categorized data from the years 1998, 2008, and 2021, and the total years recorded all fit in a similar trend. About half of the participants did not respond to the question. Aside from those who did not respond to the question, most of the participants worked between 40-60 hours and some worked between 21-40. Participants rarely worked over 80 hours. This could mean that even after suffering from significant historical events that negatively impact economics, the trend of working hours stays relatively similar to the general trend for data from 1997 to 2022. This finding does not mean that the numbers of reports for each working hour were the same: more participants responded to the question in the years 1998 and 2021 compared to the year 2008. This could mean that there were more job opportunities in 1998 and 2021 than in 2008. 
 
 
-```{r}
-#| label: fig-cate-comparisons
-#| fig-cap: Categorical Working Hour Comparison between the Years
-#| fig-subcap: ["Asian Financial Crisis (1998)","World Financial Crisis(2008)","During Covid-19 Pandemic (2021)", "Total"]
-#| layout-ncol: 2
-#| echo: false
-#| warning: false
-#| message: false
-
-#still need to modify the graphs
-
-data <- read.csv(here::here("inputs/data/cleaned_categorized_data.csv"))
-data <- data[c(2:ncol(data))]
-# Get rid of the first letter X for each of the years
-colnames(data) <- gsub("X", "", colnames(data))
-
-Data_1998 <- select(data,work_hours,`1998`)
-ggplot(Data_1998,aes(x=work_hours,y=`1998`)) +
-  geom_bar(stat="identity") + 
-  theme_minimal() + # Make the theme neater
-  labs(x = "Working Hours", y = "Number of Reports") +
-  scale_color_brewer(palette = "Set1") +
-  theme(legend.position = "bottom")
-
-Data_2008 <- select(data,work_hours,`2008`)
-ggplot(Data_2008,aes(x=work_hours,y=`2008`)) +
-  geom_bar(stat="identity") + 
-  theme_minimal() + # Make the theme neater
-  labs(x = "Working Hours", y = "Number of Reports") +
-  scale_color_brewer(palette = "Set1") +
-  theme(legend.position = "bottom")
-
-Data_2021 <- select(data,work_hours,`2021`)
-ggplot(Data_2021,aes(x=work_hours,y=`2021`)) +
-  geom_bar(stat="identity") + 
-  theme_minimal() + # Make the theme neater
-  labs(x = "Working Hours", y = "Number of Reports") +
-  scale_color_brewer(palette = "Set1") +
-  theme(legend.position = "bottom")
-
-Data_Total <- select(data,work_hours,Total)
-ggplot(Data_Total,aes(x=work_hours,y= Total)) +
-  geom_bar(stat="identity") + 
-  theme_minimal() + # Make the theme neater
-  labs(x = "Working Hours", y = "Number of Reports") +
-  scale_color_brewer(palette = "Set1") +
-  theme(legend.position = "bottom")
-```
 
 \break
 
