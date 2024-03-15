@@ -12,7 +12,7 @@
 library(dplyr)
 
 #### Test data ####
-data <- read.csv(here::here("inputs/data/cleaned_categorized_data.csv"))
+data <- read.csv(here::here("data/analysis_data/cleaned_categorized_data.csv"))
 test_non_negative <- all(select(data, -work_hours) >= 0)
 print(test_non_negative)
 #The result shows that the year columns does not contain non-negative values.
@@ -44,3 +44,26 @@ test_data_types <- all(sapply(data[,-c(1,2)], is.integer))
 print(test_data_types)
 #The data is consistent as everything except working hours are integers.
 
+
+# 6. Check that responses range from 1974 through 2022 #
+min(colnames(data)[2:36]) <= 1972
+max(colnames(data)[2:36]) >= 2022
+
+# 7. Check number of work hours categories
+data$work_hours |>
+  unique() |>
+  length() == 7
+
+#8. Check number of columns(work_hours + years)
+colnames(data) |>
+  unique() |>
+  length() == 37
+
+#9. Check if the totals are consistent
+sum(data[1:6,3]) == data[7,3]
+
+total <- 0
+for(i in 3:36){
+  total <- total + data[3,i] 
+}
+total == data[3,37]
