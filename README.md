@@ -1,5 +1,5 @@
 # Labour Market Resilience
-Economic Crisis Has Diverse Impacts on Industry Work Hours
+Analysis of Economic Crises on Industry Work Hours in 1998, 2008 and 2020 US General Social Surveys
 
 ## Overview of Paper
 This paper explores the nuanced impacts of economic crises on labour market dynamics, specifically focusing on how various economic downturns, such as the 1998 Asian Financial Crisis, the 2008 financial crisis, and the COVID-19 pandemic, influence work hours across different industries and demographics. Our analysis leverages the dataset "Number of hours worked last week" from decades of the U.S. General Social Survey (GSS) and programming R language to examine the labour market's resilience and economic downturn effects.
