@@ -1,4 +1,4 @@
-# Labour Market Resilience
+# U.S. Labour Market Resilience
 Analysis of Economic Crises on Industry Work Hours in 1998, 2008 and 2020 US General Social Surveys
 
 ## Overview of Paper
