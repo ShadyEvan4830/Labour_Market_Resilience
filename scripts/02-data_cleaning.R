@@ -16,7 +16,7 @@ library(here)
 
 #### Clean data ####
 # load dataset that has been cropped for analysis
-data <- read.csv(here::here("inputs/data/cropped_data.csv"))
+data <- read.csv(here::here("data/raw_data/cropped_data.csv"))
 
 # the first column of the dataset is the names of the rows
 # so we renamed the row names based on first column and 
@@ -38,7 +38,7 @@ colnames(data) <- gsub("X", "", colnames(data))
 rownames(data)[1:4] <- c("Inapplicable","No answer","Do not Know/Cannot Choose","Skipped on Web")
 
 # Save the cleaned data
-write.csv(data, "inputs/data/cleaned_data.csv")
+write.csv(data, "data/analysis_data/cleaned_data.csv")
 
 #### Categorize Data #####
 colnames(data)[1] <- "work_hours"
@@ -114,4 +114,4 @@ cate_data <- rbind(No_Response,tweenties,forties,sixties,eighties,more,total)
 cate_data <- data.frame(cbind(Hours,cate_data))
 colnames(cate_data) <- year
 
-write.csv(cate_data,"inputs/data/cleaned_categorized_data.csv")
+write.csv(cate_data,"data/analysis_data/cleaned_categorized_data.csv")
