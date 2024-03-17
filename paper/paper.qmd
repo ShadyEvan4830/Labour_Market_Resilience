@@ -255,7 +255,6 @@ This trend in @fig-ave-hour-comparison underscores the tangible impact of econom
 
 data <- read.csv(here::here("data/analysis_data/cleaned_data.csv"))
 # Get rid of the first letter X for each of the years
-colnames(data)[1] <- "work_hours"
 colnames(data) <- gsub("X", "", colnames(data))
 
 #Histogram of average working hours for 2008, 2021, 2022, and Total
@@ -289,9 +288,72 @@ kable(average_hours,row.names = FALSE)|>
 
 The number of reports in different working hours between the years where the significant events happened were studied in @fig-cate-comparisons. According to the histograms, it is interesting that, although they have different numbers, the histograms of the categorized data from the years 1998, 2008, and 2021, and the total years recorded all fit in a similar trend. About half of the participants did not respond to the question. Aside from those who did not respond to the question, most of the participants worked between 40-60 hours and some worked between 21-40. Participants rarely worked over 80 hours. This could mean that even after suffering from significant historical events that negatively impact economics, the trend of working hours stays relatively similar to the general trend for data from 1997 to 2022. This finding does not mean that the numbers of reports for each working hour were the same: more participants responded to the question in the years 1998 and 2021 compared to the year 2008. This could mean that there were more job opportunities in 1998 and 2021 than in 2008. 
 
+```{r}
+#| label: fig-hour-working-percentage
+#| fig-cap: Average Working Hours Percentages 
+#| echo: false
+#| warning: false
+#| message: false
+#| 
+data <- read.csv(here::here("data/analysis_data/cleaned_categorized_data.csv"))
+data <- data[c(2:ncol(data))]
+# Get rid of the first letter X for each of the years
+colnames(data) <- gsub("X", "", colnames(data))
+work_hours <- rep(data$work_hours,35)
+years <- colnames(data)[2:36]
+years <- rep(years,each=7)
+
+responses <- unname(unlist(data[c(2:36)]))
+
+data_long <- data.frame(cbind(work_hours,years,responses))
+Totals <- filter(data_long, work_hours == "Total")
+Subtotals <- filter(data_long, work_hours == "No Response")
+Totals$responses <- as.numeric(Totals$responses)
+Subtotals$responses <- as.numeric(Subtotals$responses)
+Subtotals <- mutate(Subtotals, subtotal = Totals$responses - Subtotals$responses)
+
+data_perc <- data_long %>%  filter(years>=1993) %>% 
+  filter(work_hours != "Total") %>%
+  filter(work_hours != "No Response")
 
 
-\break
+# Generate heatmap
+generate_heatmap <- function(
+    ggplot_data,
+    xlabel = NULL,
+    ylabel = NULL,
+    position = NULL,
+    angle = 45,
+    hjust = 1,
+    vjust = 1
+) {
+  
+  ggplot_data +
+    geom_tile() +
+    scale_fill_gradient2(low = "white", high = "darkblue", guide = "colorbar") +
+    theme(
+      axis.text.x = element_text(angle = angle, vjust = vjust, hjust = hjust)
+    ) +
+    theme(legend.position = position) +
+    labs(
+      x = xlabel,
+      y = ylabel,
+    )
+}
+
+ggplot_data <- inner_join(data_perc, Subtotals, 
+                          by = c("years"))
+ggplot_data$responses.x <- as.numeric(ggplot_data$responses.x)
+ggplot_data <- mutate(ggplot_data,Percentage = responses.x/subtotal)
+
+generate_heatmap(
+  ggplot_data |>
+    ggplot(aes(x = years, y = work_hours.x, fill = Percentage)),
+  xlabel = "Year of Data Collected",
+  ylabel = "Number of Hours Worked Last Week"
+)
+
+```
 
 ## Nonresponse Rate
 
