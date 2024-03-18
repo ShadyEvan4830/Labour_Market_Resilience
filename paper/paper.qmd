@@ -51,7 +51,7 @@ The paper uses data collected from the US General Social Survey (GSS) from NORIC
 
 ## Source Data
 
-From the dataset, we used the variable “response” to collect the respondent’s responses. For clarity, the variable was renamed to “work hours” as the respondent’s response was the number of hours they worked. Another variable used is “year”. The purpose of this variable is to collect the year the survey was conducted.  
+From the dataset, we used the variable “response” to collect the respondent’s responses. For clarity, the variable was renamed to “work hours” as the respondent’s response was the number of hours they worked. Another variable used is “year”. The purpose of this variable is to collect the year the survey was conducted. To collect demographic data, specifically age and gender, the datasets “age” and “sex” were used. The two datasets are used to further analyze age groups and genders to working hours. 
 
 For the analysis, we retrieved the following data as described in @tbl-use-var.
 
@@ -59,6 +59,8 @@ For the analysis, we retrieved the following data as described in @tbl-use-var.
 |----------|------------|---------------------------------|---------|
 | response | work hours | Respondent's response           | 23      |
 | year     | year       | The year of the survey recorded | 2007    |
+| AGE      | AGE        | The age of the respondents      | 23      |
+| SEX      | SEX        | The gender of the respondents   | MALE    |
 
 : Source data retrieved from GSS {#tbl-use-var}
 
@@ -292,6 +294,7 @@ The number of reports in different working hours between the years where the sig
 
 As we illustrated in @fig-nonresponse-rate, non-response rates may also help indicate significant differences in participants and data collection over the years. For example, although we can still see a slight increase from 1992 to 2022 (no data for 1992), this suggests that a gradual rise in non-response rates from 1992 to 2022 may signal a decline in participant engagement and accessibility Variety. We speculate that this trend may be attributed to the rise of digital communications, privacy concerns, and survey fatigue. Demographic changes and technological advances, such as the widespread use of mobile devices, also play a role. Therefore, adapting survey methods to these changes is critical to maintaining data quality and representativeness.
 
+## Percentage of Working Hours Responses
 ```{r}
 #| label: fig-hour-working-percentage
 #| fig-cap: Average Working Hours Percentages 
@@ -367,6 +370,8 @@ The data depicted in @fig-hour-working-percentage illustrates the average yearly
 
 @fig-hour-working-percentage indicates that the second most common range of average working hours is between 41-60 hours, suggesting that a significant portion of the population works within this time frame. Following this, the analysis highlights that the third most common range is 0-20 hours, indicating a substantial number of individuals who work part-time or have limited working hours. As the analysis progresses, it notes that the averages of 61-80 hours and 80+ hours represent progressively smaller percentages of average working hours. This implies that fewer individuals work such long hours compared to those in the previous ranges. Finally, it specifies that the category of 80+ hours represents the smallest percentage, indicating that only a minority of individuals work exceptionally long hours. Overall, this analysis provides insight into the distribution of working hours, highlighting common patterns and indicating trends towards fewer individuals working extremely long hours.
 
+## Demographic Factors
+
 ```{r}
 #| label: fig-demographic-comparison
 #| fig-cap: Working Hours Comparisons with Demographic factors
@@ -436,9 +441,11 @@ ggplot(gg_data,aes(x=years,y=average_gender)) +
   theme(legend.position = "bottom")
 ```
 
-@fig-demographic-comparison presents a comparison of average ages across different years, specifically for 1998, 2008, 2010, 2018, and 2021. The y-axis represents the average age, and the x-axis denotes the years. The bars show a slight decrease in the average age in 2021 compared to the previous years, suggesting a younger demographic in the most recent year displayed. It also illustrates the percentage of females within the data for the same years as shown in @fig-demographic-comparison. The y-axis indicates the percentage of females, while the x-axis represents the years. The bars are relatively even, demonstrating a consistent representation of females across the selected years, with a very slight variation.
+@fig-demographic-comparison presents a comparison of average ages across different years, specifically for 1998, 2008, 2010, 2018, and 2021. The bars show a slight decrease in the average age in 2021 compared to the previous years, suggesting a younger demographic in the most recent year displayed. It illustrates the percentage of females within the data for the same years as shown in @fig-demographic-comparison as well. The bars are relatively even, demonstrating a consistent representation of females across the selected years, with a very slight variation.
 
-Both figures are titled "Working Hours Comparisons with Demographic factors," implying that the data presented may be used to analyze the relationship between demographic characteristics (age and gender) and working hours, although the specific hours worked are not shown in these charts. The consistent layout and design of the charts facilitate a clear and direct comparison of demographic trends over the years.
+
+Both @fig-demographic-comparison-1 and @fig-demographic-comparison-2 analyze the relationship between demographic characteristics (age and gender) and working hours. The demographic factors do not vary dramatically, indicating that age and gender may not play a significant role in terms of work hours in a week.
+
 
 # Discussion {#sec-discussion}
 
@@ -471,7 +478,7 @@ In addition, we adopted several strategies to address potential bias in our rese
 
 ## Limitations
 
-Our analysis grounded in the rich dataset provided by the General Social Survey (GSS) [^1], navigates through a complex terrain of labour market dynamics in the wake of economic crises. However, as mentioned in the @sec-data section, several limitations inherent to the dataset and the broader research approach necessitate a cautious interpretation of our findings.
+Our analysis grounded in the rich dataset provided by the General Social Survey (GSS) [^1], navigates through a complex terrain of labour market dynamics in the wake of economic crises. However, as mentioned in the [Data] section, several limitations inherent to the dataset and the broader research approach necessitate a cautious interpretation of our findings.
 
 The original data only provides simple data on working hours, but in [@gssCodebook], GSS has a detailed explanation of the data survey method, such as interviewing random people through questionnaires. The sensitive nature of questions related to economic hardships and employment challenges may lead to a degree of response bias. Despite advancements in survey techniques since the 1970s, the discomfort associated with disclosing personal economic impacts or job losses can limit the diversity and authenticity of responses collected. Framing questions within the GSS regarding employment and economic resilience may also inadvertently reflect biases or presuppositions. This phenomenon could mirror previous findings where respondents mask their true beliefs on topics, potentially skewing the data towards more socially acceptable responses.
 
@@ -483,7 +490,7 @@ While it is fitting that necessary updates to survey methods, the change in GSS'
 
 The demographic representation within the GSS data warrants careful consideration. Variations in sample composition by gender, age, education level, and other demographic factors can influence the generalizability of our findings. We worry that the potential for overrepresentation or underrepresentation of certain groups underscores the importance of employing robust analytical techniques to account for these disparities and interpret the data within the context of its limitations.
 
-Finally, our paper also has certain limitations in processing data as shown in @sec-data section. One limitation stems from our decision to analyze the years immediately following the economic crisis (2010 and 2021) rather than the year immediately following the recession itself. This choice was made partly because of the lack of data for 2009 in the General Social Survey (GSS), necessitating the need to use 2010 (the second year of the economic crisis) as a proxy to measure the post-crisis impact of the 2008 financial recession. Likewise, given the unprecedented impact of the COVID-19 pandemic in 2020, the selection of 2021 was intended to capture its consequences rather than 2022, which could be compared to the 2010 selection.
+Finally, our paper also has certain limitations in processing data as shown in [Data] section. One limitation stems from our decision to analyze the years immediately following the economic crisis (2010 and 2021) rather than the year immediately following the recession itself. This choice was made partly because of the lack of data for 2009 in the General Social Survey (GSS), necessitating the need to use 2010 (the second year of the economic crisis) as a proxy to measure the post-crisis impact of the 2008 financial recession. Likewise, given the unprecedented impact of the COVID-19 pandemic in 2020, the selection of 2021 was intended to capture its consequences rather than 2022, which could be compared to the 2010 selection.
 
 This methodological decision, while practical, introduces a temporal shift that may not fully capture the direct impact of the economic crisis on working hours. The absence of 2009 GSS data leaves a significant gap in our longitudinal analysis because it limits our ability to directly compare the pre-crisis, crisis, and post-crisis periods consistently.
 
