@@ -5,7 +5,7 @@ author:
   - Mingjia Chen
   - Catherine Punnoose
   - Tianen (Evan) Hao
-thanks: "Code and data are available at: https://github.com/ShadyEvan4830/Labour_Market_Resilience.git"
+thanks: "Code and data are available at: https://github.com/ShadyEvan4830/Labour_Market_Resilience.git. Thank Professor Alexander so much for the fantastic feedback."
 date: March 11, 2024
 date-format: long
 abstract: "Economic crises have impacted labour market working patterns and employment levels, but are all groups within the labour market suffering from similar trends? Focusing on the Asian Financial Crisis, the Global Financial Crisis, and the COVID-19 pandemic, this study uses data from the U.S. General Social Survey (GSS) to investigate the impact of major economic downturns on U.S. labour force dynamics, focusing specifically on “hours worked last week.” Our analysis reveals that economic downturns lead to a decline in average working hours, and identifies disparities in the effects of economic crises on demographic groups, with women and younger workers disproportionately affected. These findings underscore the necessity for targeted interventions to support the most vulnerable groups in the labour market."
@@ -41,7 +41,7 @@ This paper uses U.S. General Social Survey (GSS) [@GSS] data to examine the "num
 
 Our analysis of GSS data, including gender, age, and career field variables, seeks to provide detailed insights into how economic crises affect work hours, contributing to discussions on labour market flexibility during economic instability.
 
-Initial findings show disparities: younger workers, those with less education, and women face significant work-hour reductions during crises. This underscores the need for targeted policy interventions to address these disparities and strengthen labour market resilience.
+Initial findings show disparities: workers faced significant reductions in working hours during the crisis, with studies by [@Chen_Yeh_2021] and [@Singh_Shirazi_Turetken_2022] showing that women face a more severe job impact due to their unique social obligations. This highlights the need for targeted policy interventions to address these differences and enhance labour market resilience.
 
 This paper begins with an [Introduction] framing the impact of economic downturns on work hours. It is followed by the [Data] section detailing methodology and cleaning efforts. In the [Results], we analyze work hours and nonresponse rates, leading to the [Discussion] on labour market responses to crises, including the impact of COVID-19, and addressing ethical issues. We later acknowledge our paper's Limitations, suggest paths for Future Research, especially on enhancing response rates, and conclude with a synthesis of our insights. The [Appendix] provides further survey information.
 
@@ -124,7 +124,7 @@ Due to the COVID-19 Global Pandemic, the GSS Cross-section changed its method of
 
 ```{r}
 #| label: fig-cate-comparisons
-#| fig-cap: Categorical Working Hour Comparison between the Years
+#| fig-cap: Categorical Working Hours of last Week Comparison between the Years with Critial Financial Crisis
 #| fig-subcap: ["Asian Financial Crisis (1998)","World Financial Crisis (2008)","During Covid-19 Pandemic (2021)", "Total"]
 #| layout-ncol: 2
 #| echo: false
@@ -143,7 +143,7 @@ Data_1998 <- select(data,work_hours,`1998`)
 ggplot(Data_1998,aes(x=work_hours,y=`1998`)) +
   geom_bar(stat="identity") + 
   theme_minimal() + # Make the theme neater
-  labs(x = "Hours of Working", y = "Number of Reports") +
+  labs(x = "Hours of Working Last Week", y = "Number of Responses") +
   scale_color_brewer(palette = "Set1") +
   theme(legend.position = "bottom")
 
@@ -151,7 +151,7 @@ Data_2008 <- select(data,work_hours,`2008`)
 ggplot(Data_2008,aes(x=work_hours,y=`2008`)) +
   geom_bar(stat="identity") + 
   theme_minimal() + # Make the theme neater
-  labs(x = "Hours of Working", y = "Number of Reports") +
+  labs(x = "Hours of Working Last Week", y = "Number of Responses") +
   scale_color_brewer(palette = "Set1") +
   theme(legend.position = "bottom")
 
@@ -159,7 +159,7 @@ Data_2021 <- select(data,work_hours,`2021`)
 ggplot(Data_2021,aes(x=work_hours,y=`2021`)) +
   geom_bar(stat="identity") + 
   theme_minimal() + # Make the theme neater
-  labs(x = "Hours of Working", y = "Number of Reports") +
+  labs(x = "Hours of Working Last Week", y = "Number of Responses") +
   scale_color_brewer(palette = "Set1") +
   theme(legend.position = "bottom")
 
@@ -167,7 +167,7 @@ Data_Total <- select(data,work_hours,Total)
 ggplot(Data_Total,aes(x=work_hours,y= Total)) +
   geom_bar(stat="identity") + 
   theme_minimal() + # Make the theme neater
-  labs(x = "Hours of Working", y = "Number of Reports") +
+  labs(x = "Hours of Working Last Week", y = "Number of Responses") +
   scale_color_brewer(palette = "Set1") +
   theme(legend.position = "bottom")
 ```
@@ -240,7 +240,7 @@ ggplot(non_response_data, aes(x = years,y=non_response_rate)) +
 
 # Results {#sec-results}
 
-## Average Working Hour Comparison Between Financial Events 
+## Average Working Hour Comparison Between Financial Crisis
 
 To more accurately depict the ramifications of economic crises, our study employed data from years closely following significant downturns, specifically comparing 2010 and 2021 to assess the aftermath of the 2008 financial crisis and the COVID-19 pandemic, respectively. Due to the absence of data for 2009 in the General Social Survey (GSS), these subsequent years served as our focal points for analysis. Our findings, when juxtaposed with data from a year of economic stability, 2018, reveal a notable decrease in working hours for both 2010 and 2021. 
 
@@ -248,7 +248,7 @@ This trend in @fig-ave-hour-comparison underscores the tangible impact of econom
 
 ```{r}
 #| label: fig-ave-hour-comparison
-#| fig-cap: Average Working Hours Comparison between Financial Events
+#| fig-cap: Average Working Hours Comparison between Financial Crisis
 #| echo: false
 #| warning: false
 #| message: false
@@ -288,13 +288,18 @@ kable(average_hours,row.names = FALSE)|>
 
 The number of reports in different working hours between the years where the significant events happened were studied in @fig-cate-comparisons. According to the histograms, it is interesting that, although they have different numbers, the histograms of the categorized data from the years 1998, 2008, and 2021, and the total years recorded all fit in a similar trend. About half of the participants did not respond to the question. Aside from those who did not respond to the question, most of the participants worked between 40-60 hours and some worked between 21-40. Participants rarely worked over 80 hours. This could mean that even after suffering from significant historical events that negatively impact economics, the trend of working hours stays relatively similar to the general trend for data from 1997 to 2022. This finding does not mean that the numbers of reports for each working hour were the same: more participants responded to the question in the years 1998 and 2021 compared to the year 2008. This could mean that there were more job opportunities in 1998 and 2021 than in 2008. 
 
+## Nonresponse Rate
+
+As we illustrated in @fig-nonresponse-rate, non-response rates may also help indicate significant differences in participants and data collection over the years. For example, although we can still see a slight increase from 1992 to 2022 (no data for 1992), this suggests that a gradual rise in non-response rates from 1992 to 2022 may signal a decline in participant engagement and accessibility Variety. We speculate that this trend may be attributed to the rise of digital communications, privacy concerns, and survey fatigue. Demographic changes and technological advances, such as the widespread use of mobile devices, also play a role. Therefore, adapting survey methods to these changes is critical to maintaining data quality and representativeness.
+
+
 ```{r}
 #| label: fig-hour-working-percentage
 #| fig-cap: Average Working Hours Percentages 
 #| echo: false
 #| warning: false
 #| message: false
-#| 
+
 data <- read.csv(here::here("data/analysis_data/cleaned_categorized_data.csv"))
 data <- data[c(2:ncol(data))]
 # Get rid of the first letter X for each of the years
@@ -316,6 +321,9 @@ data_perc <- data_long %>%  filter(years>=1993) %>%
   filter(work_hours != "Total") %>%
   filter(work_hours != "No Response")
 
+
+# Reference Helper Function code from 
+# https://github.com/christina-wei/Financial-Wellness-in-US/blob/main/scripts/04-helper_functions.R
 
 # Generate heatmap
 generate_heatmap <- function(
@@ -355,9 +363,22 @@ generate_heatmap(
 
 ```
 
-## Nonresponse Rate
 
-Non-response rates we illustrated in @fig-nonresponse-rate, in addition, could help indicate a significant difference in participants and data collection between the years. The year 1972, for example, is evidence of the gap in the data set; even though it is included in the data set, the non-response rate is 100%, meaning that no answers to this question were collected during that year. The non-response rate in general is similar among the years, not indicating significant differences between the years even during the financial crisis. 
+```{r}
+#| label: fig-demographic-comparison
+#| fig-cap: Working Hours Comparisons with Demographic factors
+#| layout-ncol: 2
+#| echo: false
+#| warning: false
+#| message: false
+
+sup_data <- read.csv(here::here("data/analysis_data/supplementary_data.csv"))
+
+
+
+
+
+```
 
 # Discussion {#sec-discussion}
 
