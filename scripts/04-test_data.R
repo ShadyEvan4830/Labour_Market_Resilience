@@ -1,12 +1,12 @@
 #### Preamble ####
 # Purpose: Basic tests codes for dataset.
-# Author: Mingjia Chen, Catherine Punnoose, Tianen (Evan) Hao
+# Author: Tianen (Evan) Hao
 # Date: 11 March 2024 
-# Contact: mingjia.chen@mail.utoronto.ca 
+# Contact: evan.hao@mail.utoronto.ca 
 # License: MIT
 # Pre-requisites: 
-  # 00-simulate_data.R
-  # 01-data_cleaning.R
+# 00-simulate_data.R
+# 01-data_cleaning.R
 
 #### Workspace setup ####
 library(dplyr)
@@ -66,4 +66,5 @@ total <- 0
 for(i in 3:36){
   total <- total + data[3,i] 
 }
+total == data[3,37]
 total == data[3,37]
