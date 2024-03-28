@@ -1,8 +1,8 @@
 #### Preamble ####
-# Purpose: Basic tests codes for dataset.
-# Author: Tianen (Evan) Hao
+# Purpose: Clean GSS Dataset
+# Author: Mingjia Chen, Catherine Punnoose, Tianen (Evan) Hao
 # Date: 11 March 2024 
-# Contact: evan.hao@mail.utoronto.ca 
+# Contact: mingjia.chen@mail.utoronto.ca 
 # License: MIT
 # Pre-requisites: 
 # 00-simulate_data.R
